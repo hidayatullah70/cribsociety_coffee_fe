@@ -1,0 +1,540 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Coffee,
+  ArrowRight,
+  Clock,
+  MapPin,
+  Sparkles,
+  Award,
+  ShieldCheck,
+  Flame,
+  CheckCircle2,
+  ChevronRight,
+  Phone,
+} from 'lucide-react';
+import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
+import { Card } from '../../components/ui/Card';
+import { Skeleton } from '../../components/ui/Skeleton';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { apiClient } from '../../api';
+import { Product, ProductCategory } from '../../types';
+import { formatIDR } from '../../utils/currency';
+
+export const LandingPage: React.FC = () => {
+  const [categories, setCategories] = useState<ProductCategory[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchMenu = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const [catList, prodList] = await Promise.all([
+        apiClient.getCategories(),
+        apiClient.getProducts(),
+      ]);
+      setCategories(catList);
+      setProducts(prodList);
+    } catch (err: any) {
+      setError(err?.message || 'Failed to load menu items.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMenu();
+  }, []);
+
+  const filteredProducts = activeCategory === 'all'
+    ? products
+    : products.filter((p) => p.categoryId === activeCategory);
+
+  return (
+    <div className="min-h-screen bg-brand-cream text-brand-black flex flex-col selection:bg-brand-red selection:text-white">
+      {/* 1. Header / Navbar */}
+      <header className="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur-md border-b border-brand-cream-dark/80 px-4 sm:px-8 py-4 transition-all">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-xl bg-brand-red flex items-center justify-center text-brand-white shadow-md shadow-brand-red/20 font-black">
+              <Coffee className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="font-extrabold text-lg sm:text-xl tracking-tight block leading-tight text-brand-black">
+                CRIB SOCIETY
+              </span>
+              <span className="text-[10px] tracking-[0.2em] font-bold text-brand-red uppercase block">
+                COFFEE & POS
+              </span>
+            </div>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-8 font-medium text-sm">
+            <a href="#featured-menu" className="hover:text-brand-red transition-colors">
+              Menu
+            </a>
+            <a href="#brand-story" className="hover:text-brand-red transition-colors">
+              Brand Story
+            </a>
+            <a href="#store-info" className="hover:text-brand-red transition-colors">
+              Store Info
+            </a>
+            <a href="#highlights" className="hover:text-brand-red transition-colors">
+              Community
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Link to="/login">
+              <Button variant="outline" size="sm" className="hidden sm:inline-flex border-brand-cream-dark">
+                Staff Portal
+              </Button>
+            </Link>
+            <Link to="/pos">
+              <Button variant="primary" size="sm" className="flex items-center gap-2">
+                <span>Order at Counter</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* 2. Hero Section */}
+      <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-8 border-b border-brand-cream-dark">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="inline-flex items-center gap-2 bg-brand-red-soft text-brand-red px-3.5 py-1.5 rounded-full border border-brand-red/20 font-bold text-xs uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Modern Micro-Roastery & Counter POS</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-brand-black leading-[1.05]">
+              CRAFT COFFEE. <br />
+              <span className="text-brand-red inline-block">ZERO BS.</span> <br />
+              LIGHTNING FAST.
+            </h1>
+
+            <p className="text-base sm:text-lg text-brand-black/70 max-w-xl font-normal leading-relaxed">
+              We pull single-origin espresso and slow-fermented roasts tailored for the new generation of coffee purists. Built with a hyper-responsive counter workflow.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <Link to="/pos">
+                <Button size="lg" className="w-full sm:w-auto flex items-center justify-center gap-2 text-base px-8 py-4 font-bold shadow-xl shadow-brand-red/25 hover:shadow-brand-red/40">
+                  <span>Open POS / Order Now</span>
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </Link>
+              <a href="#store-info">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto border-brand-black/20 text-brand-black hover:bg-brand-white">
+                  Visit Coffee Shop
+                </Button>
+              </a>
+            </div>
+
+            {/* Quick Metrics */}
+            <div className="pt-6 grid grid-cols-3 gap-4 border-t border-brand-cream-dark/80 max-w-lg">
+              <div>
+                <div className="text-2xl sm:text-3xl font-black text-brand-black">92+</div>
+                <div className="text-xs font-semibold text-brand-black/50 uppercase">Cup Score Beans</div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-black text-brand-red">&lt; 90s</div>
+                <div className="text-xs font-semibold text-brand-black/50 uppercase">Counter Service</div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-black text-brand-black">100%</div>
+                <div className="text-xs font-semibold text-brand-black/50 uppercase">Direct Trade</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Hero Image Card */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-brand-black shadow-2xl bg-brand-black">
+              <img
+                src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=1000"
+                alt="Barista brewing espresso"
+                className="w-full h-[380px] sm:h-[480px] object-cover opacity-90 hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/30 to-transparent" />
+              
+              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-brand-white/95 backdrop-blur-md border border-brand-cream-dark text-brand-black shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold">
+                      <Flame className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-sm text-brand-black">Today's Roaster Pick</h4>
+                      <p className="text-xs text-brand-black/60">Ethiopia Yirgacheffe Natural</p>
+                    </div>
+                  </div>
+                  <Badge variant="brand">Fresh Roast</Badge>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Featured Menu Section */}
+      <section id="featured-menu" className="py-20 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 text-brand-red text-xs font-black uppercase tracking-wider mb-2">
+              <Coffee className="w-4 h-4" />
+              <span>Curated Selection</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-black">
+              FEATURED CRAFT MENU
+            </h2>
+            <p className="text-sm text-brand-black/60 mt-1">
+              Roasted in-house weekly. Prepared fresh with precision dial-in.
+            </p>
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <button
+              onClick={() => setActiveCategory('all')}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap min-h-[40px] ${
+                activeCategory === 'all'
+                  ? 'bg-brand-black text-brand-white shadow-md'
+                  : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream'
+              }`}
+            >
+              All Items ({products.length})
+            </button>
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap min-h-[40px] ${
+                  activeCategory === cat.id
+                    ? 'bg-brand-black text-brand-white shadow-md'
+                    : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Menu Grid States */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <Card key={i} className="p-4 space-y-4">
+                <Skeleton className="w-full h-48 rounded-xl" />
+                <Skeleton className="w-2/3 h-5" />
+                <Skeleton className="w-full h-10" />
+                <div className="flex justify-between items-center pt-2">
+                  <Skeleton className="w-20 h-6" />
+                  <Skeleton className="w-24 h-9" />
+                </div>
+              </Card>
+            ))}
+          </div>
+        ) : error ? (
+          <EmptyState
+            type="error"
+            title="Unable to load menu"
+            description={error}
+            actionLabel="Try Reloading Menu"
+            onAction={fetchMenu}
+          />
+        ) : filteredProducts.length === 0 ? (
+          <EmptyState
+            type="empty"
+            title="No items found"
+            description="No products match the selected category right now."
+            actionLabel="View All Menu"
+            onAction={() => setActiveCategory('all')}
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProducts.map((product) => (
+              <Card
+                key={product.id}
+                className="group relative overflow-hidden flex flex-col justify-between border border-brand-cream-dark/90 hover:border-brand-black hover:shadow-xl transition-all duration-300 p-0"
+              >
+                {/* Image & Badge */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-brand-cream-dark">
+                  {product.imageUrl ? (
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-brand-black/30">
+                      <Coffee className="w-12 h-12" />
+                    </div>
+                  )}
+
+                  <div className="absolute top-3 right-3 flex items-center gap-2">
+                    {product.available ? (
+                      <Badge variant="neutral" size="sm" className="bg-brand-white/90 backdrop-blur-sm">
+                        Available
+                      </Badge>
+                    ) : (
+                      <Badge variant="danger" size="sm" className="bg-brand-white/90 backdrop-blur-sm">
+                        Sold Out
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h3 className="font-extrabold text-base text-brand-black group-hover:text-brand-red transition-colors tracking-tight">
+                        {product.name}
+                      </h3>
+                      <span className="font-black text-brand-black text-base whitespace-nowrap">
+                        {formatIDR(product.price)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-brand-black/65 line-clamp-2 mt-1.5 leading-relaxed">
+                      {product.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-brand-cream-dark/60 flex items-center justify-between">
+                    <span className="text-[11px] font-semibold text-brand-black/50">
+                      {product.variants.length > 0
+                        ? `${product.variants.length} Sizes/Options`
+                        : 'Single Serving'}
+                    </span>
+                    <Link to="/pos">
+                      <Button
+                        size="sm"
+                        variant={product.available ? 'primary' : 'outline'}
+                        disabled={!product.available}
+                        className="text-xs font-bold"
+                      >
+                        {product.available ? 'Order in POS' : 'Unavailable'}
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* 4. Brand Story Section */}
+      <section id="brand-story" className="py-20 bg-brand-black text-brand-white px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-5 relative order-2 lg:order-1">
+            <div className="rounded-3xl overflow-hidden border border-brand-black-soft shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=800"
+                alt="Coffee roasting process"
+                className="w-full h-[400px] object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+            <div className="inline-flex items-center gap-2 bg-brand-red/20 text-brand-red px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              <Award className="w-3.5 h-3.5" />
+              <span>The Crib Philosophy</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+              COMMUNITY-FOCUSED. <br />
+              OBSESSIVELY ROASTED.
+            </h2>
+
+            <p className="text-brand-white/70 text-sm sm:text-base leading-relaxed">
+              Crib Society Coffee was founded on a simple premise: elevate everyday coffee without the pretension. We source directly from ethical farmers in Aceh, Java, and Latin America, roasting in micro-batches to preserve authentic terroir notes.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              <div className="p-4 rounded-xl bg-brand-black-soft border border-brand-black-muted">
+                <CheckCircle2 className="w-5 h-5 text-brand-red mb-2" />
+                <h4 className="font-bold text-sm text-brand-white">Micro-Batch Roasting</h4>
+                <p className="text-xs text-brand-white/60 mt-1">
+                  Small 5kg drum batches for optimum sugar caramelization and clarity.
+                </p>
+              </div>
+              <div className="p-4 rounded-xl bg-brand-black-soft border border-brand-black-muted">
+                <ShieldCheck className="w-5 h-5 text-brand-red mb-2" />
+                <h4 className="font-bold text-sm text-brand-white">Zero Artificial Flavors</h4>
+                <p className="text-xs text-brand-white/60 mt-1">
+                  100% natural bean extracts, organic palm nectar, and clean dairy substitutes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Store Information Section */}
+      <section id="store-info" className="py-20 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <Badge variant="brand" className="mb-2">Visit Us</Badge>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-brand-black">
+            STORE LOCATION & HOURS
+          </h2>
+          <p className="text-sm text-brand-black/60 mt-1">
+            Drop by for a quick counter pickup or chill at our communal bar workspace.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="flex flex-col items-start p-6 space-y-3 border-brand-cream-dark">
+            <div className="w-12 h-12 rounded-xl bg-brand-red-soft text-brand-red flex items-center justify-center font-bold">
+              <MapPin className="w-6 h-6" />
+            </div>
+            <h3 className="font-extrabold text-lg text-brand-black">Flagship Store</h3>
+            <p className="text-xs text-brand-black/70 leading-relaxed">
+              Jl. Senopati No. 42, Kebayoran Baru<br />
+              Jakarta Selatan, DKI Jakarta 12190
+            </p>
+            <span className="text-[11px] font-bold text-brand-red pt-2 inline-flex items-center gap-1">
+              Counter Service & Dine-in <ChevronRight className="w-3.5 h-3.5" />
+            </span>
+          </Card>
+
+          <Card className="flex flex-col items-start p-6 space-y-3 border-brand-cream-dark">
+            <div className="w-12 h-12 rounded-xl bg-brand-cream text-brand-black flex items-center justify-center font-bold">
+              <Clock className="w-6 h-6" />
+            </div>
+            <h3 className="font-extrabold text-lg text-brand-black">Operating Hours</h3>
+            <div className="text-xs text-brand-black/70 space-y-1">
+              <div className="flex justify-between w-full gap-4">
+                <span className="font-medium">Monday – Friday:</span>
+                <span className="font-bold">07:00 – 21:00</span>
+              </div>
+              <div className="flex justify-between w-full gap-4">
+                <span className="font-medium">Saturday – Sunday:</span>
+                <span className="font-bold">07:30 – 22:00</span>
+              </div>
+            </div>
+            <Badge variant="success" size="sm" className="mt-2">Open Now</Badge>
+          </Card>
+
+          <Card className="flex flex-col items-start p-6 space-y-3 border-brand-cream-dark">
+            <div className="w-12 h-12 rounded-xl bg-brand-black text-brand-white flex items-center justify-center font-bold">
+              <Phone className="w-6 h-6" />
+            </div>
+            <h3 className="font-extrabold text-lg text-brand-black">Direct Contacts</h3>
+            <p className="text-xs text-brand-black/70 leading-relaxed">
+              WhatsApp Counter: +62 812-9988-7766<br />
+              Email: hello@cribsociety.coffee
+            </p>
+            <div className="flex items-center gap-2 pt-2">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-lg bg-brand-cream hover:bg-brand-cream-dark text-brand-black transition-colors"
+                aria-label="Instagram"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* 6. Selected Highlights / Social Proof */}
+      <section id="highlights" className="py-16 bg-brand-cream-dark/40 border-y border-brand-cream-dark px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl font-black text-brand-black">COMMUNITY HIGHLIGHTS</h3>
+            <p className="text-xs text-brand-black/60 mt-1">What our regulars say about the crib experience</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-5 rounded-2xl bg-brand-white border border-brand-cream-dark shadow-sm space-y-3">
+              <div className="flex text-brand-red">★★★★★</div>
+              <p className="text-xs text-brand-black/80 italic leading-relaxed">
+                "The Crib Signature Latte is by far the cleanest iced coffee in Senopati. The sea salt cold foam balance is incredible."
+              </p>
+              <div className="text-xs font-bold text-brand-black">— Reza A., Product Designer</div>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-brand-white border border-brand-cream-dark shadow-sm space-y-3">
+              <div className="flex text-brand-red">★★★★★</div>
+              <p className="text-xs text-brand-black/80 italic leading-relaxed">
+                "Super fast counter POS ordering. I get my morning pour-over within 2 minutes of walking through the door."
+              </p>
+              <div className="text-xs font-bold text-brand-black">— Nadia K., Founder</div>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-brand-white border border-brand-cream-dark shadow-sm space-y-3">
+              <div className="flex text-brand-red">★★★★★</div>
+              <p className="text-xs text-brand-black/80 italic leading-relaxed">
+                "Ethiopia Yirgacheffe on V60 has outstanding floral clarity. Baristas really know their brew parameters."
+              </p>
+              <div className="text-xs font-bold text-brand-black">— Tommy W., Specialty Coffee Enthusiast</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Footer */}
+      <footer className="bg-brand-black text-brand-white pt-14 pb-8 px-4 sm:px-8 mt-auto">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-brand-black-soft">
+          <div className="space-y-3 md:col-span-2">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-brand-red flex items-center justify-center font-black text-brand-white">
+                <Coffee className="w-5 h-5" />
+              </div>
+              <span className="font-black text-lg tracking-tight">CRIB SOCIETY COFFEE</span>
+            </div>
+            <p className="text-xs text-brand-white/60 max-w-sm leading-relaxed">
+              Craft coffee roastery and modern counter POS experience. Designed for seamless interactions from landing to espresso pull.
+            </p>
+          </div>
+
+          <div>
+            <h5 className="text-xs font-bold uppercase tracking-wider text-brand-white/40 mb-3">
+              Explore
+            </h5>
+            <ul className="space-y-2 text-xs font-medium text-brand-white/70">
+              <li><a href="#featured-menu" className="hover:text-brand-white">Curated Menu</a></li>
+              <li><a href="#brand-story" className="hover:text-brand-white">Brand Story</a></li>
+              <li><a href="#store-info" className="hover:text-brand-white">Store Location</a></li>
+              <li><Link to="/pos" className="hover:text-brand-red">Counter POS</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 className="text-xs font-bold uppercase tracking-wider text-brand-white/40 mb-3">
+              Operations
+            </h5>
+            <ul className="space-y-2 text-xs font-medium text-brand-white/70">
+              <li><Link to="/login" className="hover:text-brand-red font-semibold">Staff & Owner Sign-In</Link></li>
+              <li><Link to="/dashboard/staff" className="hover:text-brand-white">Shift Overview</Link></li>
+              <li><Link to="/dashboard/owner" className="hover:text-brand-white">Owner Analytics</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-brand-white/40 gap-2">
+          <div>© {new Date().getFullYear()} Crib Society Coffee Roasters. All rights reserved.</div>
+          <div className="flex items-center gap-4">
+            <span>SOT-Compliant MVP</span>
+            <span>•</span>
+            <Link to="/login" className="hover:underline text-brand-white/60">Operational Portal</Link>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
