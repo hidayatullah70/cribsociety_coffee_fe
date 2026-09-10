@@ -254,6 +254,9 @@ export const ProductsPage: React.FC = () => {
                           <img
                             src={p.imageUrl || 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=200'}
                             alt={p.name}
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=200';
+                            }}
                             className="w-10 h-10 rounded-lg object-cover bg-brand-black-soft shrink-0 border border-brand-black-muted"
                           />
                           <div>

@@ -51,7 +51,16 @@ class MockDatabase {
       if (storedOrders) this.orders = JSON.parse(storedOrders);
 
       const storedProducts = sessionStorage.getItem('csc_products');
-      if (storedProducts) this.products = JSON.parse(storedProducts);
+      if (storedProducts) {
+        const parsed: Product[] = JSON.parse(storedProducts);
+        this.products = parsed.map((p) => {
+          const defaultProd = MOCK_PRODUCTS.find((m) => m.id === p.id);
+          if (defaultProd && (!p.imageUrl || p.imageUrl.includes('1572442388796'))) {
+            return { ...p, imageUrl: defaultProd.imageUrl };
+          }
+          return p;
+        });
+      }
 
       const storedInv = sessionStorage.getItem('csc_inventory');
       if (storedInv) this.inventory = JSON.parse(storedInv);

@@ -56,7 +56,7 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'Sweet condensed milk foundation layered with bold dark roast and freshly ground Ceylon cinnamon.',
     price: 34000,
     available: true,
-    imageUrl: 'https://images.unsplash.com/photo-1572442388796-11668ba67e53?auto=format&fit=crop&q=80&w=600',
+    imageUrl: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&q=80&w=600',
     stockQuantity: 28,
     lowStockThreshold: 10,
     variants: [
