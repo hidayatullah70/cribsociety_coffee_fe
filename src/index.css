@@ -5,41 +5,43 @@
 @layer base {
   :root {
     --color-brand-red: #DF2933;
-    --color-brand-red-dark: #A61B13;
-    --color-brand-red-soft: #FDE8E6;
-    --color-brand-black: #111111;
-    --color-brand-black-soft: #1C1C1C;
-    --color-brand-cream: #F6F0E6;
-    --color-brand-cream-dark: #E8DDCC;
+    --color-brand-red-dark: #B01A23;
+    --color-brand-red-soft: #2D1416;
+    --color-brand-black: #0D0D0D;
+    --color-brand-black-soft: #161616;
+    --color-brand-black-card: #1C1C1C;
+    --color-brand-black-border: #2E2E2E;
+    --color-brand-white: #FFFFFF;
+    --color-brand-white-muted: #A3A3A3;
   }
 
   body {
-    background-color: var(--color-brand-cream);
-    color: var(--color-brand-black);
+    background-color: #0D0D0D;
+    color: #FFFFFF;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom minimal scrollbar */
+/* Custom dark scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0D0D0D;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D9CEBE;
+  background: #2E2E2E;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B8AA96;
+  background: #DF2933;
 }
 
-/* Subtle focus ring style */
+/* Focus ring style */
 :focus-visible {
   outline: 2px solid #DF2933;
   outline-offset: 2px;
@@ -76,6 +78,7 @@
     padding: 0;
     border: none;
     box-shadow: none;
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
   }
 }
-

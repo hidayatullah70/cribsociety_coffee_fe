@@ -16,13 +16,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full space-y-1.5">
         {label && (
-          <label htmlFor={inputId} className="block text-xs font-semibold text-brand-black tracking-wide uppercase">
+          <label htmlFor={inputId} className="block text-xs font-semibold text-brand-white tracking-wide uppercase">
             {label}
           </label>
         )}
         <div className="relative flex items-center">
           {startIcon && (
-            <div className="absolute left-3.5 flex items-center pointer-events-none text-brand-black/40">
+            <div className="absolute left-3.5 flex items-center pointer-events-none text-brand-red">
               {startIcon}
             </div>
           )}
@@ -30,7 +30,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full bg-brand-white border border-brand-cream-dark text-brand-black text-sm rounded-lg py-2.5 px-3.5 transition-colors placeholder:text-brand-black/35 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red disabled:bg-brand-cream disabled:opacity-60',
+              'w-full bg-brand-black-soft border border-brand-black-muted text-brand-white text-sm rounded-xl py-2.5 px-3.5 transition-colors placeholder:text-brand-white/40 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red disabled:bg-brand-black disabled:opacity-50',
               startIcon && 'pl-10',
               endIcon && 'pr-10',
               error && 'border-utility-danger focus:border-utility-danger focus:ring-utility-danger',
@@ -39,7 +39,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {endIcon && (
-            <div className="absolute right-3.5 flex items-center text-brand-black/40">
+            <div className="absolute right-3.5 flex items-center text-brand-red">
               {endIcon}
             </div>
           )}
@@ -47,7 +47,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {error ? (
           <p className="text-xs text-utility-danger font-medium">{error}</p>
         ) : helperText ? (
-          <p className="text-xs text-brand-black/60">{helperText}</p>
+          <p className="text-xs text-brand-white/60">{helperText}</p>
         ) : null}
       </div>
     );

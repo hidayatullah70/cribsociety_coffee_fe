@@ -32,18 +32,18 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
       description="Receipt generated and sent to counter queue."
       size="md"
     >
-      <div className="space-y-6 pt-2">
+      <div className="space-y-6 pt-2 text-white">
         {/* Success Banner */}
-        <div className="p-4 bg-utility-success-soft rounded-2xl border border-utility-success/20 flex items-center justify-between">
+        <div className="p-4 bg-utility-success-soft rounded-2xl border border-utility-success/40 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-utility-success text-white flex items-center justify-center">
-              <CheckCircle className="w-6 h-6" />
+              <CheckCircle className="w-6 h-6 text-white" />
             </div>
             <div>
               <span className="text-[10px] uppercase font-bold text-utility-success tracking-wider block">
                 Queue Order Number
               </span>
-              <span className="text-2xl font-black text-brand-black tracking-tight">
+              <span className="text-2xl font-black text-white tracking-tight font-mono">
                 #{order.orderNumber}
               </span>
             </div>
@@ -52,38 +52,40 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
         </div>
 
         {/* Customer & Timestamp */}
-        <div className="flex items-center justify-between text-xs text-brand-black/70 px-1">
-          <div className="flex items-center gap-1.5 font-semibold text-brand-black">
+        <div className="flex items-center justify-between text-xs text-brand-white/70 px-1">
+          <div className="flex items-center gap-1.5 font-semibold text-white">
             <User className="w-3.5 h-3.5 text-brand-red" />
             <span>{order.customerName || 'Counter Customer'}</span>
           </div>
-          <div>{new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
+          <div className="text-brand-white/50">
+            {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+          </div>
         </div>
 
-        {/* Printable Receipt Paper Surface */}
-        <div className="p-4 bg-brand-cream-light rounded-xl border border-dashed border-brand-cream-dark space-y-3 font-mono text-xs">
-          <div className="text-center pb-2 border-b border-dashed border-brand-cream-dark">
-            <div className="font-bold text-sm tracking-tight text-brand-black">CRIB SOCIETY COFFEE</div>
-            <div className="text-[10px] text-brand-black/60">Jl. Senopati No. 42 Jakarta</div>
+        {/* Thermal Receipt Paper Surface */}
+        <div className="p-4 bg-brand-black-soft rounded-xl border border-dashed border-brand-black-muted space-y-3 font-mono text-xs text-white">
+          <div className="text-center pb-2 border-b border-dashed border-brand-black-muted">
+            <div className="font-bold text-sm tracking-tight text-white">CRIB SOCIETY COFFEE</div>
+            <div className="text-[10px] text-brand-white/60">Jl. Senopati No. 42 Jakarta</div>
           </div>
 
           <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
             {order.items.map((item, idx) => (
-              <div key={idx} className="flex justify-between items-start text-brand-black">
+              <div key={idx} className="flex justify-between items-start text-white">
                 <div className="max-w-[70%]">
                   <div className="font-bold">
                     {item.quantity}x {item.name}
                   </div>
                   {item.variantName && (
-                    <div className="text-[10px] text-brand-black/60">Size: {item.variantName}</div>
+                    <div className="text-[10px] text-brand-red">Size: {item.variantName}</div>
                   )}
                   {item.addonNames && item.addonNames.length > 0 && (
-                    <div className="text-[10px] text-brand-black/60">
+                    <div className="text-[10px] text-brand-white/60">
                       +{item.addonNames.join(', ')}
                     </div>
                   )}
                   {item.note && (
-                    <div className="text-[10px] italic text-brand-red">Note: {item.note}</div>
+                    <div className="text-[10px] italic text-brand-white/50">Note: {item.note}</div>
                   )}
                 </div>
                 <div className="font-bold whitespace-nowrap">{formatIDR(item.itemTotal)}</div>
@@ -91,20 +93,20 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
             ))}
           </div>
 
-          <div className="pt-3 border-t border-dashed border-brand-cream-dark space-y-1">
-            <div className="flex justify-between text-brand-black/70">
+          <div className="pt-3 border-t border-dashed border-brand-black-muted space-y-1">
+            <div className="flex justify-between text-brand-white/70">
               <span>Subtotal:</span>
               <span>{formatIDR(order.subtotal)}</span>
             </div>
             {order.discount && order.discount > 0 ? (
-              <div className="flex justify-between text-utility-danger font-semibold">
+              <div className="flex justify-between text-brand-red font-semibold">
                 <span>Discount:</span>
                 <span>-{formatIDR(order.discount)}</span>
               </div>
             ) : null}
-            <div className="flex justify-between text-base font-bold text-brand-black pt-1 border-t border-dashed border-brand-cream-dark">
+            <div className="flex justify-between text-base font-bold text-white pt-1 border-t border-dashed border-brand-black-muted">
               <span>TOTAL PAID:</span>
-              <span>{formatIDR(order.total)}</span>
+              <span className="text-brand-red">{formatIDR(order.total)}</span>
             </div>
           </div>
         </div>
@@ -114,9 +116,9 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
           <Button
             variant="outline"
             onClick={handlePrint}
-            className="flex items-center justify-center gap-2 border-brand-cream-dark text-xs font-bold"
+            className="flex items-center justify-center gap-2 border-brand-black-muted text-xs font-bold"
           >
-            <Printer className="w-4 h-4" />
+            <Printer className="w-4 h-4 text-brand-red" />
             <span>Print Receipt</span>
           </Button>
           <Button

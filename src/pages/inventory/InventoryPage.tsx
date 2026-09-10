@@ -89,17 +89,17 @@ export const InventoryPage: React.FC = () => {
   ).length;
 
   return (
-    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 bg-brand-cream overflow-y-auto">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 bg-brand-black text-brand-white overflow-y-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <Badge variant="brand" size="sm">Stock & Ingredients</Badge>
-            <span className="text-xs text-brand-black/60 font-semibold">
+            <span className="text-xs text-brand-white/60 font-semibold">
               {inventory.length} total SKUs
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-brand-black tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
             INVENTORY MANAGEMENT
           </h1>
         </div>
@@ -108,33 +108,33 @@ export const InventoryPage: React.FC = () => {
           variant="outline"
           size="sm"
           onClick={loadInventory}
-          className="flex items-center gap-2 border-brand-cream-dark self-start sm:self-auto"
+          className="flex items-center gap-2 border-brand-black-muted hover:border-brand-red text-white self-start sm:self-auto"
         >
-          <RefreshCw className="w-3.5 h-3.5" />
+          <RefreshCw className="w-3.5 h-3.5 text-brand-red" />
           <span>Refresh Stock</span>
         </Button>
       </div>
 
       {/* Role Permission Banner */}
       {!isOwner && (
-        <div className="p-3.5 rounded-xl bg-brand-cream-dark/60 border border-brand-cream-dark flex items-center justify-between text-xs text-brand-black">
+        <div className="p-3.5 rounded-xl bg-brand-black-card border border-brand-black-muted flex items-center justify-between text-xs text-brand-white">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-brand-black/60" />
+            <ShieldAlert className="w-4 h-4 text-brand-red" />
             <span>Staff access: You can toggle product in/out-of-stock status. Quantity restock is managed by owner.</span>
           </div>
-          <Badge variant="neutral" size="sm">Staff Scope</Badge>
+          <Badge variant="brand" size="sm">Staff Scope</Badge>
         </div>
       )}
 
       {/* Low Stock Warning Alert */}
       {lowStockCount > 0 && (
-        <div className="p-4 rounded-2xl bg-utility-warning-soft border border-utility-warning/30 flex items-center gap-3">
+        <div className="p-4 rounded-2xl bg-utility-warning-soft border border-utility-warning/40 flex items-center gap-3">
           <AlertTriangle className="w-5 h-5 text-utility-warning shrink-0" />
           <div className="text-xs">
-            <span className="font-bold text-brand-black">
+            <span className="font-bold text-white">
               {lowStockCount} items have reached low-stock threshold or are unavailable.
             </span>
-            <p className="text-brand-black/70 mt-0.5">
+            <p className="text-brand-white/70 mt-0.5">
               Review highlighted products below to prevent out-of-stock interruptions at POS.
             </p>
           </div>
@@ -148,7 +148,7 @@ export const InventoryPage: React.FC = () => {
             placeholder="Search SKU or category..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            startIcon={<Search className="w-4 h-4" />}
+            startIcon={<Search className="w-4 h-4 text-brand-red" />}
           />
         </div>
 
@@ -156,10 +156,10 @@ export const InventoryPage: React.FC = () => {
           <button
             onClick={() => setFilterStock('all')}
             className={cn(
-              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px]',
+              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px] border',
               filterStock === 'all'
-                ? 'bg-brand-black text-brand-white shadow-sm'
-                : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream'
+                ? 'bg-brand-red text-white border-brand-red shadow-sm shadow-brand-red/20'
+                : 'bg-brand-black-card border-brand-black-muted text-brand-white/80 hover:bg-brand-black-soft hover:text-white'
             )}
           >
             All ({inventory.length})
@@ -167,10 +167,10 @@ export const InventoryPage: React.FC = () => {
           <button
             onClick={() => setFilterStock('low')}
             className={cn(
-              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px]',
+              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px] border',
               filterStock === 'low'
-                ? 'bg-utility-warning text-white shadow-sm'
-                : 'bg-brand-white border border-brand-cream-dark text-utility-warning hover:bg-brand-cream'
+                ? 'bg-utility-warning text-black border-utility-warning shadow-sm font-black'
+                : 'bg-brand-black-card border-brand-black-muted text-utility-warning hover:bg-brand-black-soft'
             )}
           >
             Low Stock ({inventory.filter((i) => i.quantity <= i.lowStockThreshold && i.quantity > 0).length})
@@ -178,10 +178,10 @@ export const InventoryPage: React.FC = () => {
           <button
             onClick={() => setFilterStock('out')}
             className={cn(
-              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px]',
+              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all min-h-[40px] border',
               filterStock === 'out'
-                ? 'bg-utility-danger text-white shadow-sm'
-                : 'bg-brand-white border border-brand-cream-dark text-utility-danger hover:bg-brand-cream'
+                ? 'bg-utility-danger text-white border-utility-danger shadow-sm'
+                : 'bg-brand-black-card border-brand-black-muted text-utility-danger hover:bg-brand-black-soft'
             )}
           >
             Out of Stock ({inventory.filter((i) => i.quantity === 0 || !i.available).length})
@@ -191,7 +191,7 @@ export const InventoryPage: React.FC = () => {
 
       {/* Inventory Table */}
       {isLoading ? (
-        <Card className="p-4 space-y-4">
+        <Card className="p-4 space-y-4 bg-brand-black-card border-brand-black-muted">
           {[1, 2, 3, 4, 5].map((i) => (
             <Skeleton key={i} className="w-full h-10" />
           ))}
@@ -216,10 +216,10 @@ export const InventoryPage: React.FC = () => {
           }}
         />
       ) : (
-        <Card className="p-0 overflow-hidden border-brand-cream-dark">
+        <Card className="p-0 overflow-hidden border-brand-black-muted bg-brand-black-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-brand-cream-light border-b border-brand-cream-dark text-brand-black/70 font-bold uppercase text-[10px] tracking-wider">
+              <thead className="bg-brand-black-soft border-b border-brand-black-muted text-brand-white/70 font-bold uppercase text-[10px] tracking-wider">
                 <tr>
                   <th className="py-3.5 px-4">Product Name</th>
                   <th className="py-3.5 px-4">Category</th>
@@ -229,7 +229,7 @@ export const InventoryPage: React.FC = () => {
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-cream-dark/60 font-medium">
+              <tbody className="divide-y divide-brand-black-muted font-medium">
                 {filteredItems.map((item) => {
                   const isLow = item.quantity <= item.lowStockThreshold && item.quantity > 0;
                   const isOut = item.quantity === 0 || !item.available;
@@ -238,19 +238,19 @@ export const InventoryPage: React.FC = () => {
                     <tr
                       key={item.id}
                       className={cn(
-                        'hover:bg-brand-cream/40 transition-colors',
+                        'hover:bg-brand-black-soft transition-colors',
                         isOut ? 'bg-utility-danger-soft/20' : isLow ? 'bg-utility-warning-soft/20' : ''
                       )}
                     >
-                      <td className="py-3.5 px-4 font-bold text-brand-black">
+                      <td className="py-3.5 px-4 font-bold text-white">
                         {item.productName}
                       </td>
-                      <td className="py-3.5 px-4 text-brand-black/70">
+                      <td className="py-3.5 px-4 text-brand-white/70">
                         {item.categoryName}
                       </td>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-extrabold text-sm text-brand-black">
+                          <span className="font-mono font-extrabold text-sm text-white">
                             {item.quantity} {item.unit}
                           </span>
                           {isOut ? (
@@ -262,7 +262,7 @@ export const InventoryPage: React.FC = () => {
                           )}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-brand-black/60 font-mono">
+                      <td className="py-3.5 px-4 text-brand-white/60 font-mono">
                         {item.lowStockThreshold} {item.unit}
                       </td>
                       <td className="py-3.5 px-4">
@@ -270,8 +270,8 @@ export const InventoryPage: React.FC = () => {
                           onClick={() => handleToggleAvailability(item)}
                           className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${
                             item.available
-                              ? 'bg-utility-success-soft text-utility-success border border-utility-success/30'
-                              : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/30'
+                              ? 'bg-utility-success-soft text-utility-success border border-utility-success/40'
+                              : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/40'
                           }`}
                         >
                           {item.available ? 'Available' : 'Unavailable'}
@@ -279,38 +279,38 @@ export const InventoryPage: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4 text-right">
                         {isOwner ? (
-                          <div className="inline-flex items-center gap-1 bg-brand-white rounded-lg border border-brand-cream-dark p-0.5">
+                          <div className="inline-flex items-center gap-1 bg-brand-black-soft rounded-lg border border-brand-black-muted p-0.5">
                             <button
                               onClick={() => handleAdjustQuantity(item, -5)}
-                              className="w-7 h-7 rounded flex items-center justify-center text-brand-black hover:bg-brand-cream text-xs font-bold"
+                              className="w-7 h-7 rounded flex items-center justify-center text-white hover:bg-brand-black-card text-xs font-bold"
                               title="Reduce by 5"
                             >
                               -5
                             </button>
                             <button
                               onClick={() => handleAdjustQuantity(item, -1)}
-                              className="w-7 h-7 rounded flex items-center justify-center text-brand-black hover:bg-brand-cream"
+                              className="w-7 h-7 rounded flex items-center justify-center text-brand-red hover:bg-brand-black-card"
                               title="Reduce by 1"
                             >
                               <Minus className="w-3.5 h-3.5" />
                             </button>
                             <button
                               onClick={() => handleAdjustQuantity(item, 1)}
-                              className="w-7 h-7 rounded flex items-center justify-center text-brand-black hover:bg-brand-cream"
+                              className="w-7 h-7 rounded flex items-center justify-center text-brand-red hover:bg-brand-black-card"
                               title="Add 1"
                             >
                               <Plus className="w-3.5 h-3.5" />
                             </button>
                             <button
                               onClick={() => handleAdjustQuantity(item, 10)}
-                              className="w-7 h-7 rounded flex items-center justify-center text-brand-black hover:bg-brand-cream text-xs font-bold text-brand-red"
+                              className="w-7 h-7 rounded flex items-center justify-center text-brand-red hover:bg-brand-black-card text-xs font-bold"
                               title="Restock +10"
                             >
                               +10
                             </button>
                           </div>
                         ) : (
-                          <span className="text-[10px] text-brand-black/40 italic">Owner managed</span>
+                          <span className="text-[10px] text-brand-white/40 italic">Owner managed</span>
                         )}
                       </td>
                     </tr>

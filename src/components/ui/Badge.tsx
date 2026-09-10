@@ -13,21 +13,21 @@ export const Badge: React.FC<BadgeProps> = ({
   children,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center font-medium rounded-full tracking-wide uppercase';
+  const baseStyles = 'inline-flex items-center font-bold rounded-full tracking-wider uppercase';
 
   const variants = {
-    brand: 'bg-brand-red-soft text-brand-red border border-brand-red/20',
-    success: 'bg-utility-success-soft text-utility-success border border-utility-success/20',
-    warning: 'bg-utility-warning-soft text-utility-warning border border-utility-warning/20',
-    danger: 'bg-utility-danger-soft text-utility-danger border border-utility-danger/20',
-    info: 'bg-utility-info-soft text-utility-info border border-utility-info/20',
-    neutral: 'bg-brand-cream-dark/60 text-brand-black/80 border border-brand-cream-dark',
-    outline: 'border border-brand-cream-dark text-brand-black bg-transparent',
+    brand: 'bg-brand-red-soft text-brand-red border border-brand-red/40 shadow-sm shadow-brand-red/10',
+    success: 'bg-utility-success-soft text-utility-success border border-utility-success/40',
+    warning: 'bg-utility-warning-soft text-utility-warning border border-utility-warning/40',
+    danger: 'bg-utility-danger-soft text-utility-danger border border-utility-danger/40',
+    info: 'bg-utility-info-soft text-utility-info border border-utility-info/40',
+    neutral: 'bg-brand-black-soft text-brand-white/80 border border-brand-black-muted',
+    outline: 'border border-brand-black-muted text-brand-white bg-transparent',
   };
 
   const sizes = {
-    sm: 'text-[10px] px-2 py-0.5 font-semibold',
-    md: 'text-xs px-2.5 py-1 font-semibold',
+    sm: 'text-[10px] px-2 py-0.5 font-bold',
+    md: 'text-xs px-2.5 py-1 font-bold',
   };
 
   return (

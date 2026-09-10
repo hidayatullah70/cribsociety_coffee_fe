@@ -30,7 +30,6 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
 
   useEffect(() => {
     if (product) {
-      // Default to first variant if available
       setSelectedVariant(product.variants.length > 0 ? product.variants[0] : null);
       setSelectedAddons([]);
       setNote('');
@@ -64,13 +63,13 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
       description={product.description}
       size="md"
     >
-      <div className="space-y-6 pt-2">
+      <div className="space-y-6 pt-2 text-white">
         {/* Base Price & Availability */}
-        <div className="flex items-center justify-between p-3 bg-brand-cream rounded-xl border border-brand-cream-dark">
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-black/70">
+        <div className="flex items-center justify-between p-3 bg-brand-black-soft rounded-xl border border-brand-black-muted">
+          <span className="text-xs font-bold uppercase tracking-wider text-brand-white/70">
             Base Price
           </span>
-          <span className="font-extrabold text-base text-brand-black">
+          <span className="font-extrabold text-base text-white font-mono">
             {formatIDR(product.price)}
           </span>
         </div>
@@ -78,7 +77,7 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
         {/* Variants Selection */}
         {product.variants.length > 0 && (
           <div className="space-y-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-brand-black">
+            <label className="block text-xs font-bold uppercase tracking-wider text-white">
               1. Choose Size / Serving Option
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -91,12 +90,12 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
                     onClick={() => setSelectedVariant(v)}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left text-xs font-bold transition-all min-h-[48px] ${
                       isSelected
-                        ? 'border-brand-red bg-brand-red-soft text-brand-red shadow-sm'
-                        : 'border-brand-cream-dark bg-brand-white text-brand-black hover:border-brand-black/40'
+                        ? 'border-brand-red bg-brand-red-soft text-brand-red shadow-md shadow-brand-red/10'
+                        : 'border-brand-black-muted bg-brand-black-soft text-white hover:border-brand-red/50 hover:bg-brand-black-elevate'
                     }`}
                   >
                     <span>{v.name}</span>
-                    <span className="text-[11px] font-semibold text-brand-black/60">
+                    <span className="text-[11px] font-semibold text-brand-white/60">
                       {v.priceDelta > 0 ? `+${formatIDR(v.priceDelta)}` : 'Included'}
                     </span>
                   </button>
@@ -109,7 +108,7 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
         {/* Add-ons Selection */}
         {product.addons.length > 0 && (
           <div className="space-y-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-brand-black">
+            <label className="block text-xs font-bold uppercase tracking-wider text-white">
               2. Custom Add-ons & Modifiers
             </label>
             <div className="space-y-2">
@@ -122,8 +121,8 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
                     onClick={() => toggleAddon(addon)}
                     className={`w-full flex items-center justify-between p-3 rounded-xl border text-left text-xs font-bold transition-all min-h-[44px] ${
                       isChecked
-                        ? 'border-brand-red bg-brand-red-soft text-brand-red'
-                        : 'border-brand-cream-dark bg-brand-white text-brand-black hover:border-brand-black/40'
+                        ? 'border-brand-red bg-brand-red-soft text-brand-red shadow-md shadow-brand-red/10'
+                        : 'border-brand-black-muted bg-brand-black-soft text-white hover:border-brand-red/50 hover:bg-brand-black-elevate'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -131,14 +130,14 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
                         className={`w-4 h-4 rounded flex items-center justify-center border ${
                           isChecked
                             ? 'bg-brand-red border-brand-red text-white'
-                            : 'border-brand-cream-dark bg-white'
+                            : 'border-brand-black-muted bg-brand-black-card'
                         }`}
                       >
-                        {isChecked && <Check className="w-3 h-3" />}
+                        {isChecked && <Check className="w-3 h-3 text-white" />}
                       </div>
                       <span>{addon.name}</span>
                     </div>
-                    <span className="text-[11px] font-semibold text-brand-black/60">
+                    <span className="text-[11px] font-semibold text-brand-white/60">
                       {addon.price > 0 ? `+${formatIDR(addon.price)}` : 'Free'}
                     </span>
                   </button>
@@ -159,12 +158,12 @@ export const ItemConfigModal: React.FC<ItemConfigModalProps> = ({
         </div>
 
         {/* Footer with calculated total & Add button */}
-        <div className="pt-4 border-t border-brand-cream-dark flex items-center justify-between gap-4">
+        <div className="pt-4 border-t border-brand-black-muted flex items-center justify-between gap-4">
           <div>
-            <span className="text-[10px] uppercase font-bold text-brand-black/50 block">
+            <span className="text-[10px] uppercase font-bold text-brand-white/50 block">
               Calculated Item Price
             </span>
-            <span className="text-xl font-extrabold text-brand-black">
+            <span className="text-xl font-extrabold text-white font-mono">
               {formatIDR(calculatedUnitPrice)}
             </span>
           </div>

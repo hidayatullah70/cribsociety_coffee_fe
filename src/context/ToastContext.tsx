@@ -47,38 +47,39 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         {toasts.map((toast) => {
           const icons = {
             success: <CheckCircle2 className="w-5 h-5 text-utility-success shrink-0" />,
-            error: <AlertCircle className="w-5 h-5 text-utility-danger shrink-0" />,
+            error: <AlertCircle className="w-5 h-5 text-brand-red shrink-0" />,
             warning: <AlertCircle className="w-5 h-5 text-utility-warning shrink-0" />,
             info: <Info className="w-5 h-5 text-utility-info shrink-0" />,
           };
 
           const borders = {
-            success: 'border-utility-success/30 bg-white',
-            error: 'border-utility-danger/30 bg-white',
-            warning: 'border-utility-warning/30 bg-white',
-            info: 'border-utility-info/30 bg-white',
+            success: 'border-utility-success/40 bg-brand-black-card text-white shadow-2xl',
+            error: 'border-brand-red/50 bg-brand-black-card text-white shadow-2xl',
+            warning: 'border-utility-warning/40 bg-brand-black-card text-white shadow-2xl',
+            info: 'border-utility-info/40 bg-brand-black-card text-white shadow-2xl',
           };
 
           return (
             <div
               key={toast.id}
               className={cn(
-                'pointer-events-auto flex items-start gap-3 p-4 rounded-xl border shadow-lg transition-all animate-in slide-in-from-bottom-5 duration-200',
+                'pointer-events-auto flex items-start gap-3 p-4 rounded-2xl border shadow-2xl transition-all animate-in slide-in-from-bottom-5 duration-200',
                 borders[toast.type]
               )}
             >
               {icons[toast.type]}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-brand-black tracking-tight">{toast.title}</p>
+                <p className="text-sm font-bold text-white tracking-tight">{toast.title}</p>
                 {toast.message && (
-                  <p className="text-xs text-brand-black/70 mt-0.5">{toast.message}</p>
+                  <p className="text-xs text-brand-white/70 mt-0.5">{toast.message}</p>
                 )}
               </div>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-brand-black/40 hover:text-brand-black transition-colors p-1"
+                className="text-white/40 hover:text-white transition-colors p-1"
+                aria-label="Dismiss notification"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4 text-brand-red" />
               </button>
             </div>
           );

@@ -12,14 +12,14 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const variants = {
-    default: 'bg-brand-white border border-brand-cream-dark/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]',
-    flat: 'bg-brand-cream-light border border-brand-cream-dark/60',
-    outline: 'bg-transparent border border-brand-cream-dark',
-    dark: 'bg-brand-black text-brand-white border border-brand-black-soft',
+    default: 'bg-brand-black-card text-brand-white border border-brand-black-muted shadow-[0_8px_30px_rgba(0,0,0,0.35)]',
+    flat: 'bg-brand-black-soft text-brand-white border border-brand-black-muted/70',
+    outline: 'bg-transparent text-brand-white border border-brand-black-muted',
+    dark: 'bg-brand-black text-brand-white border border-brand-black-muted',
   };
 
   return (
-    <div className={cn('rounded-xl p-5 transition-all duration-200', variants[variant], className)} {...props}>
+    <div className={cn('rounded-2xl p-5 transition-all duration-200', variants[variant], className)} {...props}>
       {children}
     </div>
   );

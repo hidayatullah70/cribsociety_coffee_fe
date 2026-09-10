@@ -61,11 +61,9 @@ export const ProductsPage: React.FC = () => {
 
   const handleSaveProduct = async (productData: Omit<Product, 'id'>, id?: string) => {
     if (id) {
-      // Edit
       await apiClient.updateProduct(id, productData);
       showToast('success', 'Product Updated', `${productData.name} saved successfully.`);
     } else {
-      // Create
       await apiClient.createProduct(productData);
       showToast('success', 'Product Created', `${productData.name} added to catalog.`);
     }
@@ -113,15 +111,15 @@ export const ProductsPage: React.FC = () => {
   });
 
   return (
-    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 bg-brand-cream overflow-y-auto">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 bg-brand-black text-brand-white overflow-y-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <Badge variant="brand" size="sm">Menu & Catalog</Badge>
-            <span className="text-xs text-brand-black/60 font-semibold">{products.length} products total</span>
+            <span className="text-xs text-brand-white/60 font-semibold">{products.length} products total</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-brand-black tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
             PRODUCT & MENU MANAGEMENT
           </h1>
         </div>
@@ -131,9 +129,9 @@ export const ProductsPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={loadCatalog}
-            className="flex items-center gap-2 border-brand-cream-dark"
+            className="flex items-center gap-2 border-brand-black-muted hover:border-brand-red text-white"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className="w-3.5 h-3.5 text-brand-red" />
             <span>Refresh</span>
           </Button>
 
@@ -156,12 +154,12 @@ export const ProductsPage: React.FC = () => {
 
       {/* Permission Scope Notice */}
       {!isOwner && (
-        <div className="p-3.5 rounded-xl bg-brand-cream-dark/50 border border-brand-cream-dark flex items-center justify-between text-xs text-brand-black">
+        <div className="p-3.5 rounded-xl bg-brand-black-card border border-brand-black-muted flex items-center justify-between text-xs text-brand-white">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-brand-black/60" />
+            <ShieldCheck className="w-4 h-4 text-brand-red" />
             <span>Staff scope: You have permission to toggle in/out-of-stock items. Product creation and pricing edits are reserved for Owner.</span>
           </div>
-          <Badge variant="neutral" size="sm">Staff Scope</Badge>
+          <Badge variant="brand" size="sm">Staff Scope</Badge>
         </div>
       )}
 
@@ -172,7 +170,7 @@ export const ProductsPage: React.FC = () => {
             placeholder="Search products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            startIcon={<Search className="w-4 h-4" />}
+            startIcon={<Search className="w-4 h-4 text-brand-red" />}
           />
         </div>
 
@@ -180,10 +178,10 @@ export const ProductsPage: React.FC = () => {
           <button
             onClick={() => setSelectedCategory('all')}
             className={cn(
-              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[40px]',
+              'px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[40px] border',
               selectedCategory === 'all'
-                ? 'bg-brand-black text-brand-white shadow-sm'
-                : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream'
+                ? 'bg-brand-red text-white border-brand-red shadow-sm shadow-brand-red/20'
+                : 'bg-brand-black-card border-brand-black-muted text-brand-white/80 hover:bg-brand-black-soft hover:text-white'
             )}
           >
             All Categories ({products.length})
@@ -193,10 +191,10 @@ export const ProductsPage: React.FC = () => {
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
               className={cn(
-                'px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[40px]',
+                'px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[40px] border',
                 selectedCategory === c.id
-                  ? 'bg-brand-black text-brand-white shadow-sm'
-                  : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream'
+                  ? 'bg-brand-red text-white border-brand-red shadow-sm shadow-brand-red/20'
+                  : 'bg-brand-black-card border-brand-black-muted text-brand-white/80 hover:bg-brand-black-soft hover:text-white'
               )}
             >
               {c.name}
@@ -207,7 +205,7 @@ export const ProductsPage: React.FC = () => {
 
       {/* Product List Table */}
       {isLoading ? (
-        <Card className="p-4 space-y-3">
+        <Card className="p-4 space-y-3 bg-brand-black-card border-brand-black-muted">
           {[1, 2, 3, 4, 5].map((i) => (
             <Skeleton key={i} className="w-full h-12" />
           ))}
@@ -232,10 +230,10 @@ export const ProductsPage: React.FC = () => {
           }}
         />
       ) : (
-        <Card className="p-0 overflow-hidden border-brand-cream-dark">
+        <Card className="p-0 overflow-hidden border-brand-black-muted bg-brand-black-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-brand-cream-light border-b border-brand-cream-dark text-brand-black/70 font-bold uppercase text-[10px] tracking-wider">
+              <thead className="bg-brand-black-soft border-b border-brand-black-muted text-brand-white/70 font-bold uppercase text-[10px] tracking-wider">
                 <tr>
                   <th className="py-3.5 px-4">Item</th>
                   <th className="py-3.5 px-4">Category</th>
@@ -246,38 +244,38 @@ export const ProductsPage: React.FC = () => {
                   {isOwner && <th className="py-3.5 px-4 text-right">Actions</th>}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-cream-dark/60 font-medium">
+              <tbody className="divide-y divide-brand-black-muted font-medium">
                 {filteredProducts.map((p) => {
                   const cat = categories.find((c) => c.id === p.categoryId);
                   return (
-                    <tr key={p.id} className="hover:bg-brand-cream/40 transition-colors">
+                    <tr key={p.id} className="hover:bg-brand-black-soft transition-colors">
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <img
                             src={p.imageUrl || 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=200'}
                             alt={p.name}
-                            className="w-10 h-10 rounded-lg object-cover bg-brand-cream-dark shrink-0"
+                            className="w-10 h-10 rounded-lg object-cover bg-brand-black-soft shrink-0 border border-brand-black-muted"
                           />
                           <div>
-                            <div className="font-extrabold text-sm text-brand-black">{p.name}</div>
-                            <div className="text-[11px] text-brand-black/60 line-clamp-1 max-w-xs">{p.description}</div>
+                            <div className="font-extrabold text-sm text-white">{p.name}</div>
+                            <div className="text-[11px] text-brand-white/60 line-clamp-1 max-w-xs">{p.description}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-brand-black/70 font-semibold">
+                      <td className="py-3.5 px-4 text-brand-white/80 font-semibold">
                         {cat?.name || 'Coffee'}
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-extrabold text-sm text-brand-black">
+                      <td className="py-3.5 px-4 font-mono font-extrabold text-sm text-white">
                         {formatIDR(p.price)}
                       </td>
-                      <td className="py-3.5 px-4 text-brand-black/70">
+                      <td className="py-3.5 px-4 text-brand-white/70">
                         <div className="space-y-0.5 text-[11px]">
                           <div>{p.variants.length} Sizes</div>
                           {p.addons.length > 0 && <div className="text-brand-red font-semibold">+{p.addons.length} Add-ons</div>}
                         </div>
                       </td>
                       <td className="py-3.5 px-4">
-                        <span className="font-mono font-bold text-brand-black">
+                        <span className="font-mono font-bold text-white">
                           {p.stockQuantity ?? 20}
                         </span>
                       </td>
@@ -286,8 +284,8 @@ export const ProductsPage: React.FC = () => {
                           onClick={() => handleToggleAvailability(p)}
                           className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${
                             p.available
-                              ? 'bg-utility-success-soft text-utility-success border border-utility-success/30'
-                              : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/30'
+                              ? 'bg-utility-success-soft text-utility-success border border-utility-success/40'
+                              : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/40'
                           }`}
                         >
                           {p.available ? 'In Stock' : 'Sold Out'}
@@ -303,16 +301,16 @@ export const ProductsPage: React.FC = () => {
                                 setEditingProduct(p);
                                 setIsModalOpen(true);
                               }}
-                              className="h-8 px-2.5 text-xs border-brand-cream-dark"
+                              className="h-8 px-2.5 text-xs border-brand-black-muted hover:border-brand-red"
                               title="Edit product"
                             >
-                              <Edit2 className="w-3.5 h-3.5 mr-1" />
+                              <Edit2 className="w-3.5 h-3.5 mr-1 text-brand-red" />
                               <span>Edit</span>
                             </Button>
                             <button
                               onClick={() => handleDeleteProduct(p.id, p.name)}
                               disabled={deletingProductId === p.id}
-                              className="p-1.5 rounded-lg text-brand-black/40 hover:text-utility-danger hover:bg-brand-cream transition-colors"
+                              className="p-1.5 rounded-lg text-brand-red/70 hover:text-brand-red hover:bg-brand-black-soft transition-colors"
                               title="Delete product"
                             >
                               <Trash2 className="w-4 h-4" />

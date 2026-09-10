@@ -10,15 +10,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading = false, children, disabled, ...props }, ref) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] select-none';
+      'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-brand-black disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] select-none';
 
     const variants = {
-      primary: 'bg-brand-red text-brand-white hover:bg-brand-red-dark shadow-sm active:bg-brand-red-dark',
-      secondary: 'bg-brand-black text-brand-white hover:bg-brand-black-soft active:bg-black',
+      primary: 'bg-brand-red text-white hover:bg-brand-red-dark shadow-md shadow-brand-red/20 active:bg-brand-red-dark',
+      secondary: 'bg-brand-black-card text-white border border-brand-black-muted hover:bg-brand-black-elevate hover:border-brand-white/20 active:bg-brand-black',
       outline:
-        'border border-brand-cream-dark bg-transparent text-brand-black hover:bg-brand-cream hover:border-brand-black-muted active:bg-brand-cream-dark',
-      ghost: 'bg-transparent text-brand-black hover:bg-brand-cream-dark/60 active:bg-brand-cream-dark',
-      destructive: 'bg-utility-danger text-brand-white hover:bg-red-700 active:bg-red-800 shadow-sm',
+        'border border-brand-black-muted bg-transparent text-white hover:bg-brand-black-soft hover:border-brand-red active:bg-brand-black-card',
+      ghost: 'bg-transparent text-white/80 hover:text-white hover:bg-brand-black-soft active:bg-brand-black-card',
+      destructive: 'bg-utility-danger text-white hover:bg-red-700 active:bg-red-800 shadow-md shadow-red-900/20',
     };
 
     const sizes = {

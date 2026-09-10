@@ -75,29 +75,29 @@ export const StaffDashboard: React.FC = () => {
   );
 
   return (
-    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 bg-brand-cream overflow-y-auto">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 bg-brand-black text-brand-white overflow-y-auto">
       {/* Header with Shift Snapshot */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Badge variant="neutral" size="sm">Staff Shift Station</Badge>
-            <span className="text-xs text-utility-success font-bold flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-utility-success" />
+            <Badge variant="brand" size="sm">Staff Shift Station</Badge>
+            <span className="text-xs text-utility-success font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-utility-success animate-pulse" />
               Active Shift
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-brand-black tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
             COUNTER OPERATIONS
           </h1>
-          <p className="text-xs text-brand-black/60">
-            Welcome on bar, <span className="font-bold text-brand-black">{user?.name}</span>. Fast lane to POS and order preparation.
+          <p className="text-xs text-brand-white/60">
+            Welcome on bar, <span className="font-bold text-white">{user?.name}</span>. Fast lane to POS and order preparation.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link to="/pos">
             <Button size="lg" variant="primary" className="font-bold flex items-center gap-2 shadow-lg shadow-brand-red/20">
-              <ShoppingCart className="w-5 h-5" />
+              <ShoppingCart className="w-5 h-5 text-white" />
               <span>Open POS Cashier</span>
             </Button>
           </Link>
@@ -106,35 +106,35 @@ export const StaffDashboard: React.FC = () => {
 
       {/* Shift Snapshot Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-brand-red-soft text-brand-red flex items-center justify-center font-bold">
-            <Flame className="w-6 h-6" />
+        <Card className="p-4 flex items-center gap-4 bg-brand-black-card border-brand-black-muted">
+          <div className="w-12 h-12 rounded-xl bg-brand-red-soft text-brand-red flex items-center justify-center font-bold border border-brand-red/30">
+            <Flame className="w-6 h-6 text-brand-red" />
           </div>
           <div>
-            <span className="text-xs text-brand-black/60 uppercase font-bold">Active Queue</span>
-            <div className="text-2xl font-black text-brand-black">{activeOrders.length} orders</div>
+            <span className="text-xs text-brand-white/60 uppercase font-bold">Active Queue</span>
+            <div className="text-2xl font-black text-white">{activeOrders.length} orders</div>
           </div>
         </Card>
 
-        <Card className="p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-utility-success-soft text-utility-success flex items-center justify-center font-bold">
-            <CheckCircle className="w-6 h-6" />
+        <Card className="p-4 flex items-center gap-4 bg-brand-black-card border-brand-black-muted">
+          <div className="w-12 h-12 rounded-xl bg-utility-success-soft text-utility-success flex items-center justify-center font-bold border border-utility-success/30">
+            <CheckCircle className="w-6 h-6 text-utility-success" />
           </div>
           <div>
-            <span className="text-xs text-brand-black/60 uppercase font-bold">Completed Today</span>
-            <div className="text-2xl font-black text-brand-black">
+            <span className="text-xs text-brand-white/60 uppercase font-bold">Completed Today</span>
+            <div className="text-2xl font-black text-white">
               {orders.filter((o) => o.orderStatus === 'COMPLETED').length} orders
             </div>
           </div>
         </Card>
 
-        <Card className="p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-brand-cream-dark text-brand-black flex items-center justify-center font-bold">
-            <Clock className="w-6 h-6" />
+        <Card className="p-4 flex items-center gap-4 bg-brand-black-card border-brand-black-muted">
+          <div className="w-12 h-12 rounded-xl bg-brand-black-soft text-brand-red flex items-center justify-center font-bold border border-brand-black-muted">
+            <Clock className="w-6 h-6 text-brand-red" />
           </div>
           <div>
-            <span className="text-xs text-brand-black/60 uppercase font-bold">Shift Clock</span>
-            <div className="text-2xl font-black text-brand-black">07:00 – 15:00</div>
+            <span className="text-xs text-brand-white/60 uppercase font-bold">Shift Clock</span>
+            <div className="text-2xl font-black text-white">07:00 – 15:00</div>
           </div>
         </Card>
       </div>
@@ -143,10 +143,10 @@ export const StaffDashboard: React.FC = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-black text-brand-black tracking-tight">Active Prep Queue</h2>
+            <h2 className="text-lg font-black text-white tracking-tight">Active Prep Queue</h2>
             <Badge variant="brand" size="sm">{activeOrders.length}</Badge>
           </div>
-          <Button variant="outline" size="sm" onClick={loadData} className="text-xs border-brand-cream-dark">
+          <Button variant="outline" size="sm" onClick={loadData} className="text-xs border-brand-black-muted hover:border-brand-red">
             Refresh Queue
           </Button>
         </div>
@@ -180,10 +180,10 @@ export const StaffDashboard: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {activeOrders.map((order) => (
-              <Card key={order.id} className="p-5 flex flex-col justify-between space-y-4 border-2 border-brand-black/10">
+              <Card key={order.id} className="p-5 flex flex-col justify-between space-y-4 border border-brand-black-muted bg-brand-black-card hover:border-brand-red/50 transition-all">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-black text-brand-black font-mono">
+                    <span className="text-lg font-black text-white font-mono">
                       #{order.orderNumber}
                     </span>
                     <Badge
@@ -200,18 +200,18 @@ export const StaffDashboard: React.FC = () => {
                     </Badge>
                   </div>
 
-                  <div className="text-xs font-semibold text-brand-black">
+                  <div className="text-xs font-semibold text-white">
                     Customer: {order.customerName || 'Counter'}
                   </div>
 
                   {/* Order items */}
-                  <div className="space-y-1.5 pt-2 border-t border-brand-cream-dark/60">
+                  <div className="space-y-1.5 pt-2 border-t border-brand-black-muted">
                     {order.items.map((item, idx) => (
-                      <div key={idx} className="text-xs text-brand-black flex justify-between">
-                        <span className="font-bold">
+                      <div key={idx} className="text-xs text-brand-white/80 flex justify-between">
+                        <span className="font-bold text-white">
                           {item.quantity}x {item.name}
                           {item.variantName && (
-                            <span className="font-normal text-brand-black/60"> ({item.variantName})</span>
+                            <span className="font-normal text-brand-red"> ({item.variantName})</span>
                           )}
                         </span>
                       </div>
@@ -220,7 +220,7 @@ export const StaffDashboard: React.FC = () => {
                 </div>
 
                 {/* Transition Action Buttons */}
-                <div className="pt-3 border-t border-brand-cream-dark/60 flex items-center gap-2">
+                <div className="pt-3 border-t border-brand-black-muted flex items-center gap-2">
                   {order.orderStatus === 'PAID' || order.orderStatus === 'PENDING' ? (
                     <Button
                       size="sm"
@@ -248,14 +248,14 @@ export const StaffDashboard: React.FC = () => {
       </div>
 
       {/* Quick Item Availability Controls */}
-      <Card className="space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-brand-cream-dark/60">
+      <Card className="space-y-4 bg-brand-black-card border-brand-black-muted">
+        <div className="flex items-center justify-between pb-3 border-b border-brand-black-muted">
           <div>
-            <h3 className="font-extrabold text-base text-brand-black">Quick Item Stock & Out-Of-Stock Switch</h3>
-            <p className="text-xs text-brand-black/60">Toggle product availability immediately for POS</p>
+            <h3 className="font-extrabold text-base text-white">Quick Item Stock & Out-Of-Stock Switch</h3>
+            <p className="text-xs text-brand-white/60">Toggle product availability immediately for POS</p>
           </div>
           <Link to="/inventory">
-            <Button variant="outline" size="sm" className="text-xs border-brand-cream-dark">
+            <Button variant="outline" size="sm" className="text-xs border-brand-black-muted hover:border-brand-red">
               Full Inventory Table
             </Button>
           </Link>
@@ -265,11 +265,11 @@ export const StaffDashboard: React.FC = () => {
           {products.map((prod) => (
             <div
               key={prod.id}
-              className="p-3 rounded-xl border border-brand-cream-dark flex items-center justify-between bg-brand-cream-light"
+              className="p-3 rounded-xl border border-brand-black-muted flex items-center justify-between bg-brand-black-soft"
             >
               <div className="min-w-0 pr-2">
-                <h4 className="font-bold text-xs text-brand-black truncate">{prod.name}</h4>
-                <span className="text-[10px] text-brand-black/60 font-mono">
+                <h4 className="font-bold text-xs text-white truncate">{prod.name}</h4>
+                <span className="text-[10px] text-brand-white/60 font-mono">
                   {formatIDR(prod.price)}
                 </span>
               </div>
@@ -277,8 +277,8 @@ export const StaffDashboard: React.FC = () => {
                 onClick={() => handleToggleProductAvailability(prod)}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all min-h-[36px] ${
                   prod.available
-                    ? 'bg-utility-success-soft text-utility-success border border-utility-success/30'
-                    : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/30'
+                    ? 'bg-utility-success-soft text-utility-success border border-utility-success/40'
+                    : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/40'
                 }`}
               >
                 {prod.available ? 'In Stock' : 'Sold Out'}

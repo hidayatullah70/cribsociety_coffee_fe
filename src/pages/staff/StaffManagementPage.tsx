@@ -53,11 +53,9 @@ export const StaffManagementPage: React.FC = () => {
     id?: string
   ) => {
     if (id) {
-      // Update
       await apiClient.updateStaff(id, staffData);
       showToast('success', 'Staff Updated', `${staffData.name} updated.`);
     } else {
-      // Create
       await apiClient.createStaff(staffData);
       showToast('success', 'Staff Registered', `${staffData.name} added to roster.`);
     }
@@ -94,15 +92,15 @@ export const StaffManagementPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 bg-brand-cream overflow-y-auto">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 bg-brand-black text-brand-white overflow-y-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <Badge variant="brand" size="sm">Staff Roster & Roles</Badge>
-            <span className="text-xs text-brand-black/60 font-semibold">{staffList.length} members</span>
+            <span className="text-xs text-brand-white/60 font-semibold">{staffList.length} members</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-brand-black tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
             STAFF & BARISTA MANAGEMENT
           </h1>
         </div>
@@ -112,9 +110,9 @@ export const StaffManagementPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={loadStaff}
-            className="flex items-center gap-2 border-brand-cream-dark"
+            className="flex items-center gap-2 border-brand-black-muted hover:border-brand-red text-white"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className="w-3.5 h-3.5 text-brand-red" />
             <span>Refresh</span>
           </Button>
 
@@ -137,7 +135,7 @@ export const StaffManagementPage: React.FC = () => {
 
       {/* Permission UX Boundary */}
       {!isOwner && (
-        <div className="p-4 rounded-xl bg-utility-warning-soft border border-utility-warning/30 flex items-center justify-between text-xs text-brand-black">
+        <div className="p-4 rounded-xl bg-utility-warning-soft border border-utility-warning/40 flex items-center justify-between text-xs text-brand-white">
           <div className="flex items-center gap-2.5">
             <ShieldAlert className="w-5 h-5 text-utility-warning" />
             <span>Staff access: You are viewing team members in read-only mode. Modifying staff accounts and roles is restricted to Owner.</span>
@@ -148,7 +146,7 @@ export const StaffManagementPage: React.FC = () => {
 
       {/* Staff Table */}
       {isLoading ? (
-        <Card className="p-4 space-y-3">
+        <Card className="p-4 space-y-3 bg-brand-black-card border-brand-black-muted">
           {[1, 2, 3].map((i) => (
             <Skeleton key={i} className="w-full h-12" />
           ))}
@@ -173,10 +171,10 @@ export const StaffManagementPage: React.FC = () => {
           }}
         />
       ) : (
-        <Card className="p-0 overflow-hidden border-brand-cream-dark">
+        <Card className="p-0 overflow-hidden border-brand-black-muted bg-brand-black-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-brand-cream-light border-b border-brand-cream-dark text-brand-black/70 font-bold uppercase text-[10px] tracking-wider">
+              <thead className="bg-brand-black-soft border-b border-brand-black-muted text-brand-white/70 font-bold uppercase text-[10px] tracking-wider">
                 <tr>
                   <th className="py-3.5 px-4">Staff Member</th>
                   <th className="py-3.5 px-4">Role Access</th>
@@ -185,17 +183,17 @@ export const StaffManagementPage: React.FC = () => {
                   {isOwner && <th className="py-3.5 px-4 text-right">Actions</th>}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-brand-cream-dark/60 font-medium">
+              <tbody className="divide-y divide-brand-black-muted font-medium">
                 {staffList.map((member) => (
-                  <tr key={member.id} className="hover:bg-brand-cream/40 transition-colors">
+                  <tr key={member.id} className="hover:bg-brand-black-soft transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-brand-black text-white flex items-center justify-center font-bold text-xs uppercase shrink-0">
+                        <div className="w-9 h-9 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xs uppercase shrink-0 shadow-sm shadow-brand-red/20">
                           {member.name.slice(0, 2)}
                         </div>
                         <div>
-                          <div className="font-extrabold text-sm text-brand-black">{member.name}</div>
-                          <div className="text-[11px] text-brand-black/60">{member.email}</div>
+                          <div className="font-extrabold text-sm text-white">{member.name}</div>
+                          <div className="text-[11px] text-brand-white/60">{member.email}</div>
                         </div>
                       </div>
                     </td>
@@ -210,16 +208,16 @@ export const StaffManagementPage: React.FC = () => {
                         disabled={!isOwner}
                         className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${
                           member.activeShift
-                            ? 'bg-utility-success-soft text-utility-success border border-utility-success/30'
-                            : 'bg-brand-cream-dark text-brand-black/60 border border-brand-cream-dark'
+                            ? 'bg-utility-success-soft text-utility-success border border-utility-success/40'
+                            : 'bg-brand-black-soft text-brand-white/60 border border-brand-black-muted'
                         }`}
                       >
-                        {member.activeShift ? 'On Duty' : 'Off Duty'}
+                        {member.activeShift ? 'On Shift' : 'Off Duty'}
                       </button>
                     </td>
-                    <td className="py-3.5 px-4 text-brand-black/60 font-medium">
+                    <td className="py-3.5 px-4 text-brand-white/60 font-medium">
                       <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-brand-black/40" />
+                        <Clock className="w-3.5 h-3.5 text-brand-red" />
                         <span>{member.lastActive}</span>
                       </div>
                     </td>
@@ -233,15 +231,15 @@ export const StaffManagementPage: React.FC = () => {
                               setEditingStaff(member);
                               setIsModalOpen(true);
                             }}
-                            className="h-8 px-2.5 text-xs border-brand-cream-dark"
+                            className="h-8 px-2.5 text-xs border-brand-black-muted hover:border-brand-red"
                             title="Edit staff member"
                           >
-                            <Edit2 className="w-3.5 h-3.5 mr-1" />
+                            <Edit2 className="w-3.5 h-3.5 mr-1 text-brand-red" />
                             <span>Edit</span>
                           </Button>
                           <button
                             onClick={() => handleDeleteStaff(member.id, member.name)}
-                            className="p-1.5 rounded-lg text-brand-black/40 hover:text-utility-danger hover:bg-brand-cream transition-colors"
+                            className="p-1.5 rounded-lg text-brand-red/70 hover:text-brand-red hover:bg-brand-black-soft transition-colors"
                             title="Remove staff member"
                           >
                             <Trash2 className="w-4 h-4" />

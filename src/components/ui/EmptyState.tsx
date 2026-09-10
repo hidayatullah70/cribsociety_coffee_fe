@@ -30,24 +30,24 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         return <AlertCircle className="w-8 h-8 text-utility-danger" />;
       case 'empty':
       default:
-        return <FolderOpen className="w-8 h-8 text-brand-black/40" />;
+        return <FolderOpen className="w-8 h-8 text-brand-red" />;
     }
   };
 
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center p-8 sm:p-12 text-center rounded-2xl border border-dashed border-brand-cream-dark/80 bg-brand-cream/30',
+        'flex flex-col items-center justify-center p-8 sm:p-12 text-center rounded-2xl border border-dashed border-brand-black-muted bg-brand-black-card/60',
         className
       )}
     >
-      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-brand-white shadow-sm mb-4 border border-brand-cream-dark">
+      <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-black-soft shadow-inner mb-4 border border-brand-black-muted">
         {icon || getDefaultIcon()}
       </div>
 
-      <h4 className="text-base font-bold text-brand-black tracking-tight">{title}</h4>
+      <h4 className="text-base font-bold text-white tracking-tight">{title}</h4>
       {description && (
-        <p className="text-xs sm:text-sm text-brand-black/60 max-w-sm mt-1.5">{description}</p>
+        <p className="text-xs sm:text-sm text-brand-white/60 max-w-sm mt-1.5 leading-relaxed">{description}</p>
       )}
 
       {onAction && (
@@ -56,9 +56,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             size="sm"
             variant={type === 'error' ? 'primary' : 'outline'}
             onClick={onAction}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 font-bold"
           >
-            {type === 'error' && <RefreshCw className="w-3.5 h-3.5" />}
+            {type === 'error' && <RefreshCw className="w-3.5 h-3.5 text-white" />}
             <span>{actionLabel || (type === 'error' ? 'Retry Action' : 'Action')}</span>
           </Button>
         </div>

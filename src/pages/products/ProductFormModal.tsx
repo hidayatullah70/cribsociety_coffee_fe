@@ -149,9 +149,9 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
       description="Configure menu item details, pricing, variants, and stock thresholds."
       size="lg"
     >
-      <form onSubmit={handleSubmit} className="space-y-6 pt-2 max-h-[75vh] overflow-y-auto pr-1">
+      <form onSubmit={handleSubmit} className="space-y-6 pt-2 max-h-[75vh] overflow-y-auto pr-1 text-white">
         {error && (
-          <div className="p-3.5 bg-utility-danger-soft border border-utility-danger/30 rounded-xl text-xs font-semibold text-utility-danger">
+          <div className="p-3.5 bg-utility-danger-soft border border-utility-danger/40 rounded-xl text-xs font-semibold text-utility-danger">
             {error}
           </div>
         )}
@@ -167,16 +167,16 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
           />
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-brand-black tracking-wide uppercase">
+            <label className="block text-xs font-semibold text-brand-white tracking-wide uppercase">
               Category
             </label>
             <select
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
-              className="w-full bg-brand-white border border-brand-cream-dark text-brand-black text-sm rounded-lg py-2.5 px-3.5 transition-colors focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+              className="w-full bg-brand-black-soft border border-brand-black-muted text-white text-sm rounded-xl py-2.5 px-3.5 transition-colors focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
             >
               {categories.map((c) => (
-                <option key={c.id} value={c.id}>
+                <option key={c.id} value={c.id} className="bg-brand-black-card text-white">
                   {c.name}
                 </option>
               ))}
@@ -213,7 +213,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-brand-black tracking-wide uppercase">
+          <label className="block text-xs font-semibold text-brand-white tracking-wide uppercase">
             Description
           </label>
           <textarea
@@ -221,7 +221,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Describe bean notes, extraction profile, ingredients..."
-            className="w-full bg-brand-white border border-brand-cream-dark text-brand-black text-sm rounded-lg p-3 transition-colors focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red placeholder:text-brand-black/40"
+            className="w-full bg-brand-black-soft border border-brand-black-muted text-white text-sm rounded-xl p-3 transition-colors focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red placeholder:text-brand-white/40"
           />
         </div>
 
@@ -230,15 +230,15 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
           placeholder="https://..."
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          startIcon={<Image className="w-4 h-4" />}
+          startIcon={<Image className="w-4 h-4 text-brand-red" />}
         />
 
         {/* Variants Builder */}
-        <div className="space-y-3 pt-2 border-t border-brand-cream-dark">
+        <div className="space-y-3 pt-2 border-t border-brand-black-muted">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-brand-red" />
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-black">
+              <span className="text-xs font-bold uppercase tracking-wider text-white">
                 Sizes & Serving Variants
               </span>
             </div>
@@ -247,16 +247,16 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
               variant="outline"
               size="sm"
               onClick={handleAddVariant}
-              className="text-xs font-bold border-brand-cream-dark h-8"
+              className="text-xs font-bold border-brand-black-muted text-white hover:border-brand-red h-8"
             >
-              <Plus className="w-3.5 h-3.5 mr-1" />
+              <Plus className="w-3.5 h-3.5 mr-1 text-brand-red" />
               <span>Add Size</span>
             </Button>
           </div>
 
           <div className="space-y-2">
             {variants.length === 0 ? (
-              <p className="text-xs text-brand-black/50 italic">No variants defined (Single Standard Size).</p>
+              <p className="text-xs text-brand-white/50 italic">No variants defined (Single Standard Size).</p>
             ) : (
               variants.map((v, i) => (
                 <div key={v.id || i} className="flex items-center gap-2">
@@ -278,7 +278,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleRemoveVariant(i)}
-                    className="p-2.5 text-brand-black/40 hover:text-utility-danger transition-colors"
+                    className="p-2.5 text-brand-red/70 hover:text-brand-red transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -289,11 +289,11 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
         </div>
 
         {/* Addons Builder */}
-        <div className="space-y-3 pt-2 border-t border-brand-cream-dark">
+        <div className="space-y-3 pt-2 border-t border-brand-black-muted">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-brand-red" />
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-black">
+              <span className="text-xs font-bold uppercase tracking-wider text-white">
                 Custom Add-ons & Modifiers
               </span>
             </div>
@@ -302,16 +302,16 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
               variant="outline"
               size="sm"
               onClick={handleAddAddon}
-              className="text-xs font-bold border-brand-cream-dark h-8"
+              className="text-xs font-bold border-brand-black-muted text-white hover:border-brand-red h-8"
             >
-              <Plus className="w-3.5 h-3.5 mr-1" />
+              <Plus className="w-3.5 h-3.5 mr-1 text-brand-red" />
               <span>Add Modifier</span>
             </Button>
           </div>
 
           <div className="space-y-2">
             {addons.length === 0 ? (
-              <p className="text-xs text-brand-black/50 italic">No custom add-ons defined.</p>
+              <p className="text-xs text-brand-white/50 italic">No custom add-ons defined.</p>
             ) : (
               addons.map((a, i) => (
                 <div key={a.id || i} className="flex items-center gap-2">
@@ -333,7 +333,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleRemoveAddon(i)}
-                    className="p-2.5 text-brand-black/40 hover:text-utility-danger transition-colors"
+                    className="p-2.5 text-brand-red/70 hover:text-brand-red transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -344,18 +344,18 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
         </div>
 
         {/* Availability Toggle */}
-        <div className="pt-2 border-t border-brand-cream-dark flex items-center justify-between">
+        <div className="pt-2 border-t border-brand-black-muted flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-brand-black block">Available for Ordering</span>
-            <span className="text-[11px] text-brand-black/60">If turned off, POS and public catalog will show Sold Out.</span>
+            <span className="text-xs font-bold text-white block">Available for Ordering</span>
+            <span className="text-[11px] text-brand-white/60">If turned off, POS and public catalog will show Sold Out.</span>
           </div>
           <button
             type="button"
             onClick={() => setAvailable(!available)}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
               available
-                ? 'bg-utility-success-soft text-utility-success border border-utility-success/30'
-                : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/30'
+                ? 'bg-utility-success-soft text-utility-success border border-utility-success/40'
+                : 'bg-utility-danger-soft text-utility-danger border border-utility-danger/40'
             }`}
           >
             {available ? 'In Stock / Active' : 'Sold Out / Inactive'}
@@ -363,11 +363,11 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
         </div>
 
         {/* Modal Actions */}
-        <div className="pt-4 border-t border-brand-cream-dark flex items-center justify-end gap-3">
-          <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+        <div className="pt-4 border-t border-brand-black-muted flex items-center justify-end gap-3">
+          <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="border-brand-black-muted">
             Cancel
           </Button>
-          <Button type="submit" variant="primary" isLoading={isSubmitting} className="font-bold px-6">
+          <Button type="submit" variant="primary" isLoading={isSubmitting} className="font-bold px-6 shadow-md shadow-brand-red/20">
             {editingProduct ? 'Save Changes' : 'Create Product'}
           </Button>
         </div>

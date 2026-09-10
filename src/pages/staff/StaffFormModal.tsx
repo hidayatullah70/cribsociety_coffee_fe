@@ -74,9 +74,9 @@ export const StaffFormModal: React.FC<StaffFormModalProps> = ({
       description="Configure role access permissions and shift activity status."
       size="md"
     >
-      <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+      <form onSubmit={handleSubmit} className="space-y-4 pt-2 text-white">
         {error && (
-          <div className="p-3 bg-utility-danger-soft border border-utility-danger/30 rounded-xl text-xs font-semibold text-utility-danger">
+          <div className="p-3 bg-utility-danger-soft border border-utility-danger/40 rounded-xl text-xs font-semibold text-utility-danger">
             {error}
           </div>
         )}
@@ -99,17 +99,17 @@ export const StaffFormModal: React.FC<StaffFormModalProps> = ({
         />
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-brand-black tracking-wide uppercase">
+          <label className="block text-xs font-semibold text-brand-white tracking-wide uppercase">
             System Role Access
           </label>
-          <div className="grid grid-cols-2 gap-2 p-1 bg-brand-cream rounded-xl border border-brand-cream-dark">
+          <div className="grid grid-cols-2 gap-2 p-1 bg-brand-black-soft rounded-xl border border-brand-black-muted">
             <button
               type="button"
               onClick={() => setRole('staff')}
               className={`py-2 px-3 rounded-lg text-xs font-bold transition-all ${
                 role === 'staff'
-                  ? 'bg-brand-white text-brand-black shadow-sm'
-                  : 'text-brand-black/60 hover:text-brand-black'
+                  ? 'bg-brand-red text-white shadow-sm'
+                  : 'text-brand-white/60 hover:text-white'
               }`}
             >
               Barista / Staff
@@ -119,8 +119,8 @@ export const StaffFormModal: React.FC<StaffFormModalProps> = ({
               onClick={() => setRole('owner')}
               className={`py-2 px-3 rounded-lg text-xs font-bold transition-all ${
                 role === 'owner'
-                  ? 'bg-brand-white text-brand-black shadow-sm'
-                  : 'text-brand-black/60 hover:text-brand-black'
+                  ? 'bg-brand-red text-white shadow-sm'
+                  : 'text-brand-white/60 hover:text-white'
               }`}
             >
               Owner
@@ -128,29 +128,29 @@ export const StaffFormModal: React.FC<StaffFormModalProps> = ({
           </div>
         </div>
 
-        <div className="pt-2 border-t border-brand-cream-dark flex items-center justify-between">
+        <div className="pt-2 border-t border-brand-black-muted flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-brand-black block">Shift Active Status</span>
-            <span className="text-[11px] text-brand-black/60">Mark whether barista is currently on duty on counter.</span>
+            <span className="text-xs font-bold text-white block">Shift Active Status</span>
+            <span className="text-[11px] text-brand-white/60">Mark whether barista is currently on duty on counter.</span>
           </div>
           <button
             type="button"
             onClick={() => setActiveShift(!activeShift)}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
               activeShift
-                ? 'bg-utility-success-soft text-utility-success border border-utility-success/30'
-                : 'bg-brand-cream-dark text-brand-black/70 border border-brand-cream-dark'
+                ? 'bg-utility-success-soft text-utility-success border border-utility-success/40'
+                : 'bg-brand-black-soft text-brand-white/60 border border-brand-black-muted'
             }`}
           >
             {activeShift ? 'On Shift' : 'Off Duty'}
           </button>
         </div>
 
-        <div className="pt-4 border-t border-brand-cream-dark flex items-center justify-end gap-3">
-          <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+        <div className="pt-4 border-t border-brand-black-muted flex items-center justify-end gap-3">
+          <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="border-brand-black-muted">
             Cancel
           </Button>
-          <Button type="submit" variant="primary" isLoading={isSubmitting} className="font-bold px-6">
+          <Button type="submit" variant="primary" isLoading={isSubmitting} className="font-bold px-6 shadow-md shadow-brand-red/20">
             {editingStaff ? 'Save Changes' : 'Register Staff'}
           </Button>
         </div>

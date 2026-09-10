@@ -12,22 +12,24 @@ Primary:
 - Red Dark: #A61B13
 - Red Soft: #FDE8E6
 
-Secondary:
-- Black: #111111
-- Black Soft: #1C1C1C
+Secondary / Base Surfaces:
+- Black: #0D0D0D (Base background)
+- Black Soft: #1A1A1A (Card & surface background)
+- Black Muted: #282828 (Border & subtle divider)
+- Black Elevate: #222222 (Hover state & active elements)
 
-Accent:
-- White: #FFFFFF
-
-Neutral:
-- Cream: #F6F0E6
-- Cream Dark: #E8DDCC
+Accent / Typography:
+- White: #FFFFFF (Primary headings & body text)
+- White Muted: #A3A3A3 (Secondary descriptors & subtitles)
 
 Utility:
 - Success: #2F7D4A
 - Warning: #B7791F
 - Danger: #B42318
 - Info: #2F6FED
+
+Icons:
+- Dominant Primary Red (#DF2933) across interactive, feature, and category icons.
 
 Use semantic Tailwind tokens rather than scattering raw hex values.
 

@@ -23,18 +23,18 @@ export const StatCard: React.FC<StatCardProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn('relative overflow-hidden flex flex-col justify-between', className)}>
+    <Card className={cn('relative overflow-hidden flex flex-col justify-between bg-brand-black-card border-brand-black-muted', className)}>
       <div className="flex items-start justify-between">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-black/60">
+          <span className="text-xs font-bold uppercase tracking-wider text-brand-white/60">
             {title}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-brand-black tracking-tight mt-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">
             {value}
           </div>
         </div>
         {icon && (
-          <div className="p-2.5 rounded-xl bg-brand-cream border border-brand-cream-dark/60 text-brand-black">
+          <div className="p-2.5 rounded-xl bg-brand-black-soft border border-brand-black-muted text-brand-red">
             {icon}
           </div>
         )}
@@ -45,16 +45,16 @@ export const StatCard: React.FC<StatCardProps> = ({
           {trend && (
             <span
               className={cn(
-                'font-bold px-1.5 py-0.5 rounded',
+                'font-bold px-1.5 py-0.5 rounded border',
                 trend.isPositive
-                  ? 'bg-utility-success-soft text-utility-success'
-                  : 'bg-utility-danger-soft text-utility-danger'
+                  ? 'bg-utility-success-soft text-utility-success border-utility-success/30'
+                  : 'bg-utility-danger-soft text-utility-danger border-utility-danger/30'
               )}
             >
               {trend.value}
             </span>
           )}
-          {subtitle && <span className="text-brand-black/60">{subtitle}</span>}
+          {subtitle && <span className="text-brand-white/60">{subtitle}</span>}
         </div>
       )}
     </Card>

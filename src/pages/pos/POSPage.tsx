@@ -100,7 +100,6 @@ export const POSPage: React.FC = () => {
       return;
     }
 
-    // If product has variants or addons, open config modal
     if (product.variants.length > 0 || product.addons.length > 0) {
       setConfiguringProduct(product);
     } else {
@@ -162,13 +161,13 @@ export const POSPage: React.FC = () => {
 
   const paymentMethods: { id: PaymentMethod; label: string; icon: React.ReactNode }[] = [
     { id: 'qris', label: 'QRIS QuickPay', icon: <QrCode className="w-4 h-4 text-brand-red" /> },
-    { id: 'cash', label: 'Cash Tender', icon: <Banknote className="w-4 h-4 text-utility-success" /> },
-    { id: 'card', label: 'Debit / Card', icon: <CreditCard className="w-4 h-4 text-brand-black" /> },
-    { id: 'other', label: 'Other', icon: <MoreHorizontal className="w-4 h-4 text-brand-black/60" /> },
+    { id: 'cash', label: 'Cash Tender', icon: <Banknote className="w-4 h-4 text-brand-red" /> },
+    { id: 'card', label: 'Debit / Card', icon: <CreditCard className="w-4 h-4 text-brand-red" /> },
+    { id: 'other', label: 'Other', icon: <MoreHorizontal className="w-4 h-4 text-brand-white/60" /> },
   ];
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row h-full overflow-hidden bg-brand-cream">
+    <div className="flex-1 flex flex-col lg:flex-row h-full overflow-hidden bg-brand-black text-brand-white">
       {/* LEFT COLUMN: Catalog + Search */}
       <div className="flex-1 flex flex-col h-full overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
         {/* Top bar with search & quick title */}
@@ -176,11 +175,11 @@ export const POSPage: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-utility-success animate-pulse" />
-              <span className="text-xs font-black uppercase tracking-wider text-brand-black/60">
+              <span className="text-xs font-black uppercase tracking-wider text-brand-white/60">
                 Live POS Counter
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-brand-black tracking-tight mt-0.5">
+            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-0.5">
               POINT OF SALE
             </h1>
           </div>
@@ -191,7 +190,7 @@ export const POSPage: React.FC = () => {
               placeholder="Search items by name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              startIcon={<Search className="w-4 h-4" />}
+              startIcon={<Search className="w-4 h-4 text-brand-red" />}
             />
           </div>
         </div>
@@ -201,10 +200,10 @@ export const POSPage: React.FC = () => {
           <button
             onClick={() => setSelectedCategory('all')}
             className={cn(
-              'px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[44px]',
+              'px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[44px] border',
               selectedCategory === 'all'
-                ? 'bg-brand-black text-brand-white shadow-sm'
-                : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream-dark/60'
+                ? 'bg-brand-red text-white border-brand-red shadow-md shadow-brand-red/20'
+                : 'bg-brand-black-card border-brand-black-muted text-brand-white/80 hover:bg-brand-black-soft hover:text-white'
             )}
           >
             All Categories ({products.length})
@@ -214,10 +213,10 @@ export const POSPage: React.FC = () => {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                'px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[44px]',
+                'px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[44px] border',
                 selectedCategory === cat.id
-                  ? 'bg-brand-black text-brand-white shadow-sm'
-                  : 'bg-brand-white border border-brand-cream-dark text-brand-black hover:bg-brand-cream-dark/60'
+                  ? 'bg-brand-red text-white border-brand-red shadow-md shadow-brand-red/20'
+                  : 'bg-brand-black-card border-brand-black-muted text-brand-white/80 hover:bg-brand-black-soft hover:text-white'
               )}
             >
               {cat.name}
@@ -265,14 +264,14 @@ export const POSPage: React.FC = () => {
                 className={cn(
                   'group flex flex-col text-left p-3.5 rounded-2xl border transition-all duration-150 relative min-h-[140px] justify-between',
                   product.available
-                    ? 'bg-brand-white border-brand-cream-dark hover:border-brand-red hover:shadow-md active:scale-[0.98]'
-                    : 'bg-brand-cream/60 border-brand-cream-dark opacity-60 cursor-not-allowed'
+                    ? 'bg-brand-black-card border-brand-black-muted hover:border-brand-red hover:shadow-xl active:scale-[0.98]'
+                    : 'bg-brand-black-soft/50 border-brand-black-muted opacity-50 cursor-not-allowed'
                 )}
               >
                 <div>
                   <div className="flex items-start justify-between gap-1 mb-2">
                     <Badge
-                      variant={product.available ? 'neutral' : 'danger'}
+                      variant={product.available ? 'brand' : 'danger'}
                       size="sm"
                       className="text-[9px]"
                     >
@@ -280,22 +279,22 @@ export const POSPage: React.FC = () => {
                     </Badge>
                     {(product.variants.length > 0 || product.addons.length > 0) && (
                       <span className="text-[10px] font-bold text-brand-red flex items-center gap-0.5">
-                        <Sparkles className="w-3 h-3" />
+                        <Sparkles className="w-3 h-3 text-brand-red" />
                         <span>Options</span>
                       </span>
                     )}
                   </div>
 
-                  <h3 className="font-extrabold text-sm text-brand-black group-hover:text-brand-red transition-colors line-clamp-2 leading-tight">
+                  <h3 className="font-extrabold text-sm text-white group-hover:text-brand-red transition-colors line-clamp-2 leading-tight">
                     {product.name}
                   </h3>
                 </div>
 
-                <div className="pt-3 border-t border-brand-cream-dark/60 flex items-center justify-between mt-3">
-                  <span className="font-extrabold text-sm text-brand-black">
+                <div className="pt-3 border-t border-brand-black-muted flex items-center justify-between mt-3">
+                  <span className="font-extrabold text-sm text-white font-mono">
                     {formatIDR(product.price)}
                   </span>
-                  <div className="w-7 h-7 rounded-lg bg-brand-cream group-hover:bg-brand-red group-hover:text-white flex items-center justify-center text-brand-black transition-colors">
+                  <div className="w-7 h-7 rounded-lg bg-brand-black-soft border border-brand-black-muted group-hover:bg-brand-red group-hover:text-white flex items-center justify-center text-brand-red transition-colors">
                     <Plus className="w-4 h-4" />
                   </div>
                 </div>
@@ -308,20 +307,20 @@ export const POSPage: React.FC = () => {
       {/* RIGHT COLUMN: Persistent Desktop Cart & Drawer on Mobile */}
       <div
         className={cn(
-          'w-full lg:w-96 xl:w-[420px] bg-brand-white border-l border-brand-cream-dark flex flex-col justify-between shrink-0 shadow-lg lg:shadow-none z-30',
+          'w-full lg:w-96 xl:w-[420px] bg-brand-black-card border-l border-brand-black-muted flex flex-col justify-between shrink-0 shadow-2xl lg:shadow-none z-30',
           'fixed lg:static inset-y-0 right-0 transition-transform duration-300',
           mobileCartOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
         )}
       >
         {/* Cart Header */}
-        <div className="p-4 sm:p-5 border-b border-brand-cream-dark flex items-center justify-between bg-brand-white">
+        <div className="p-4 sm:p-5 border-b border-brand-black-muted flex items-center justify-between bg-brand-black-card">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold">
-              <ShoppingBag className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold shadow-md shadow-brand-red/30">
+              <ShoppingBag className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="font-extrabold text-base text-brand-black leading-tight">Current Order</h2>
-              <span className="text-xs text-brand-black/60 font-semibold">
+              <h2 className="font-extrabold text-base text-white leading-tight">Current Order</h2>
+              <span className="text-xs text-brand-white/60 font-semibold">
                 {itemCount} {itemCount === 1 ? 'item' : 'items'} in cart
               </span>
             </div>
@@ -331,16 +330,16 @@ export const POSPage: React.FC = () => {
             {items.length > 0 && (
               <button
                 onClick={clearCart}
-                className="p-2 rounded-lg text-brand-black/40 hover:text-utility-danger hover:bg-brand-cream transition-colors text-xs font-semibold flex items-center gap-1"
+                className="p-2 rounded-lg text-brand-white/40 hover:text-brand-red hover:bg-brand-black-soft transition-colors text-xs font-semibold flex items-center gap-1"
                 title="Clear Cart"
               >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-4 h-4 text-brand-red" />
                 <span className="hidden sm:inline">Clear</span>
               </button>
             )}
             <button
               onClick={() => setMobileCartOpen(false)}
-              className="lg:hidden p-2 rounded-lg text-brand-black/60 hover:bg-brand-cream text-xs font-bold"
+              className="lg:hidden p-2 rounded-lg text-brand-white/60 hover:bg-brand-black-soft text-xs font-bold"
             >
               Close
             </button>
@@ -348,25 +347,25 @@ export const POSPage: React.FC = () => {
         </div>
 
         {/* Customer Name Input */}
-        <div className="px-4 py-3 bg-brand-cream/40 border-b border-brand-cream-dark">
+        <div className="px-4 py-3 bg-brand-black-soft border-b border-brand-black-muted">
           <Input
             placeholder="Customer Name / Table (e.g. Rayhan)"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
-            className="bg-brand-white text-xs py-2"
+            className="bg-brand-black-card text-xs py-2"
           />
         </div>
 
         {/* Cart Item List / Empty State */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {items.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-3 text-brand-black/50">
-              <div className="w-14 h-14 rounded-full bg-brand-cream flex items-center justify-center border border-brand-cream-dark">
-                <ShoppingCart className="w-7 h-7 text-brand-black/30" />
+            <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-3 text-brand-white/50">
+              <div className="w-14 h-14 rounded-2xl bg-brand-black-soft flex items-center justify-center border border-brand-black-muted">
+                <ShoppingCart className="w-7 h-7 text-brand-red" />
               </div>
               <div>
-                <p className="font-bold text-sm text-brand-black/80">Order Cart is Empty</p>
-                <p className="text-xs text-brand-black/50 mt-1">
+                <p className="font-bold text-sm text-white">Order Cart is Empty</p>
+                <p className="text-xs text-brand-white/50 mt-1">
                   Tap any available product on the left catalog to start building the order.
                 </p>
               </div>
@@ -375,11 +374,11 @@ export const POSPage: React.FC = () => {
             items.map((item, index) => (
               <div
                 key={item.id || index}
-                className="p-3 rounded-xl bg-brand-cream-light/60 border border-brand-cream-dark flex flex-col gap-2 transition-all"
+                className="p-3.5 rounded-xl bg-brand-black-soft border border-brand-black-muted flex flex-col gap-2 transition-all"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h4 className="font-extrabold text-xs text-brand-black leading-snug">
+                    <h4 className="font-extrabold text-xs text-white leading-snug">
                       {item.name}
                     </h4>
                     {item.variantName && (
@@ -388,41 +387,41 @@ export const POSPage: React.FC = () => {
                       </span>
                     )}
                     {item.addonNames && item.addonNames.length > 0 && (
-                      <span className="text-[10px] text-brand-black/60 block">
+                      <span className="text-[10px] text-brand-white/60 block">
                         +{item.addonNames.join(', ')}
                       </span>
                     )}
                     {item.note && (
-                      <span className="text-[10px] italic text-brand-black/50 block">
+                      <span className="text-[10px] italic text-brand-white/50 block">
                         Note: {item.note}
                       </span>
                     )}
                   </div>
-                  <span className="font-extrabold text-xs text-brand-black whitespace-nowrap">
+                  <span className="font-extrabold text-xs text-white whitespace-nowrap font-mono">
                     {formatIDR(item.itemTotal)}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between pt-1 border-t border-brand-cream-dark/50">
-                  <span className="text-[10px] text-brand-black/50 font-mono">
+                <div className="flex items-center justify-between pt-1.5 border-t border-brand-black-muted">
+                  <span className="text-[10px] text-brand-white/50 font-mono">
                     {formatIDR((item.itemTotal / item.quantity))} each
                   </span>
 
-                  {/* Quantity Controls >= 44px touch */}
-                  <div className="flex items-center gap-1 bg-brand-white rounded-lg border border-brand-cream-dark p-0.5">
+                  {/* Quantity Controls */}
+                  <div className="flex items-center gap-1 bg-brand-black-card rounded-lg border border-brand-black-muted p-0.5">
                     <button
                       onClick={() => updateQuantity(index, item.quantity - 1)}
-                      className="w-7 h-7 rounded flex items-center justify-center text-brand-black hover:bg-brand-cream transition-colors"
+                      className="w-7 h-7 rounded flex items-center justify-center text-brand-red hover:bg-brand-black-elevate transition-colors"
                       aria-label="Decrease quantity"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="w-6 text-center text-xs font-bold text-brand-black font-mono">
+                    <span className="w-6 text-center text-xs font-bold text-white font-mono">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(index, item.quantity + 1)}
-                      className="w-7 h-7 rounded flex items-center justify-center text-brand-black hover:bg-brand-cream transition-colors"
+                      className="w-7 h-7 rounded flex items-center justify-center text-brand-red hover:bg-brand-black-elevate transition-colors"
                       aria-label="Increase quantity"
                     >
                       <Plus className="w-3.5 h-3.5" />
@@ -435,11 +434,11 @@ export const POSPage: React.FC = () => {
         </div>
 
         {/* Cart Summary, Discounts, Payment Selector & Checkout Action */}
-        <div className="p-4 sm:p-5 border-t border-brand-cream-dark bg-brand-white space-y-4">
+        <div className="p-4 sm:p-5 border-t border-brand-black-muted bg-brand-black-card space-y-4">
           {/* Quick Discount Presets */}
           {items.length > 0 && (
             <div className="space-y-1.5">
-              <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-brand-black/60">
+              <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-brand-white/60">
                 <span>Discount / Voucher</span>
                 {discount > 0 && (
                   <button
@@ -464,8 +463,8 @@ export const POSPage: React.FC = () => {
                     className={cn(
                       'py-1.5 rounded-lg text-[11px] font-bold border transition-all',
                       discount === d.val
-                        ? 'border-brand-red bg-brand-red-soft text-brand-red'
-                        : 'border-brand-cream-dark bg-brand-cream-light text-brand-black/70 hover:bg-brand-cream'
+                        ? 'border-brand-red bg-brand-red-soft text-brand-red shadow-sm shadow-brand-red/10'
+                        : 'border-brand-black-muted bg-brand-black-soft text-brand-white/70 hover:bg-brand-black-elevate hover:text-white'
                     )}
                   >
                     {d.label}
@@ -477,7 +476,7 @@ export const POSPage: React.FC = () => {
 
           {/* Payment Method Selector */}
           <div className="space-y-1.5">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-brand-black/60">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-brand-white/60">
               Payment Method
             </span>
             <div className="grid grid-cols-2 gap-2">
@@ -491,8 +490,8 @@ export const POSPage: React.FC = () => {
                     className={cn(
                       'flex items-center gap-2 p-2.5 rounded-xl border text-left text-xs font-bold transition-all min-h-[44px]',
                       isSelected
-                        ? 'border-brand-red bg-brand-red-soft text-brand-red shadow-sm'
-                        : 'border-brand-cream-dark bg-brand-white text-brand-black hover:border-brand-black/30'
+                        ? 'border-brand-red bg-brand-red-soft text-brand-red shadow-sm shadow-brand-red/20'
+                        : 'border-brand-black-muted bg-brand-black-soft text-brand-white/80 hover:border-brand-red/50 hover:bg-brand-black-elevate'
                     )}
                   >
                     {pm.icon}
@@ -504,26 +503,26 @@ export const POSPage: React.FC = () => {
           </div>
 
           {/* Totals Breakdown */}
-          <div className="space-y-1.5 pt-2 border-t border-brand-cream-dark/60 text-xs">
-            <div className="flex justify-between text-brand-black/70">
+          <div className="space-y-1.5 pt-2 border-t border-brand-black-muted text-xs">
+            <div className="flex justify-between text-brand-white/70">
               <span>Subtotal:</span>
-              <span className="font-semibold">{formatIDR(subtotal)}</span>
+              <span className="font-semibold font-mono text-white">{formatIDR(subtotal)}</span>
             </div>
             {discount > 0 && (
-              <div className="flex justify-between text-utility-danger font-semibold">
+              <div className="flex justify-between text-brand-red font-semibold">
                 <span>Discount Applied:</span>
-                <span>-{formatIDR(discount)}</span>
+                <span className="font-mono">-{formatIDR(discount)}</span>
               </div>
             )}
-            <div className="flex justify-between items-baseline text-base sm:text-lg font-black text-brand-black pt-1">
+            <div className="flex justify-between items-baseline text-base sm:text-lg font-black text-white pt-1">
               <span>TOTAL DUE:</span>
-              <span className="text-xl sm:text-2xl text-brand-red">{formatIDR(total)}</span>
+              <span className="text-xl sm:text-2xl text-brand-red font-mono">{formatIDR(total)}</span>
             </div>
           </div>
 
           {checkoutError && (
-            <div className="p-3 rounded-xl bg-utility-danger-soft border border-utility-danger/30 text-xs text-utility-danger flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+            <div className="p-3 rounded-xl bg-utility-danger-soft border border-utility-danger/40 text-xs text-utility-danger flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-brand-red" />
               <span className="font-semibold">{checkoutError}</span>
             </div>
           )}
@@ -535,7 +534,7 @@ export const POSPage: React.FC = () => {
             disabled={items.length === 0 || isProcessingCheckout}
             isLoading={isProcessingCheckout}
             onClick={handleCheckout}
-            className="w-full font-bold text-base py-4 flex items-center justify-center gap-2 shadow-xl shadow-brand-red/20"
+            className="w-full font-bold text-base py-4 flex items-center justify-center gap-2 shadow-xl shadow-brand-red/25"
           >
             <span>Charge {formatIDR(total)}</span>
             <ArrowRight className="w-5 h-5" />
@@ -544,14 +543,14 @@ export const POSPage: React.FC = () => {
       </div>
 
       {/* MOBILE FLOATING CART BAR */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 p-3 bg-brand-black text-brand-white border-t border-brand-black-soft z-20 flex items-center justify-between">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 p-3 bg-brand-black-card text-brand-white border-t border-brand-black-muted z-20 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-brand-red flex items-center justify-center font-bold">
-            <ShoppingCart className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-lg bg-brand-red flex items-center justify-center font-bold shadow-md shadow-brand-red/30">
+            <ShoppingCart className="w-5 h-5 text-white" />
           </div>
           <div>
             <div className="text-xs font-bold text-brand-white/80">{itemCount} items</div>
-            <div className="text-base font-extrabold text-brand-red">{formatIDR(total)}</div>
+            <div className="text-base font-extrabold text-brand-red font-mono">{formatIDR(total)}</div>
           </div>
         </div>
 
@@ -559,7 +558,7 @@ export const POSPage: React.FC = () => {
           variant="primary"
           size="sm"
           onClick={() => setMobileCartOpen(true)}
-          className="font-bold flex items-center gap-2 px-5"
+          className="font-bold flex items-center gap-2 px-5 shadow-md shadow-brand-red/20"
         >
           <span>View Cart & Charge</span>
           <ArrowRight className="w-4 h-4" />
