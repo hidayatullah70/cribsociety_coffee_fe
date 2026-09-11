@@ -152,27 +152,27 @@ export const LandingPage: React.FC = () => {
           </div>
 
           {/* Hero Image Card */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-brand-black-muted shadow-2xl bg-brand-black-card">
+          <div className="lg:col-span-5 relative flex justify-center">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-brand-black-muted shadow-2xl bg-brand-black-card w-full max-w-md lg:max-w-none group">
               <img
-                src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=1000"
-                alt="Barista brewing espresso"
-                className="w-full h-[380px] sm:h-[480px] object-cover opacity-85 hover:scale-105 transition-transform duration-700"
+                src="/hero-crib.png"
+                alt="A Place to Gather — Crib Society Coffee"
+                className="w-full h-auto max-h-[540px] sm:max-h-[620px] object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-transparent to-transparent pointer-events-none" />
               
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-brand-black-card/95 backdrop-blur-md border border-brand-black-muted text-white shadow-xl">
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 rounded-2xl bg-brand-black-card/90 backdrop-blur-md border border-brand-black-muted text-white shadow-xl">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold shrink-0">
                       <Flame className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-extrabold text-sm text-white">Today's Roaster Pick</h4>
-                      <p className="text-xs text-brand-white/60">Ethiopia Yirgacheffe Natural</p>
+                      <h4 className="font-extrabold text-sm text-white">The Crib Experience</h4>
+                      <p className="text-xs text-brand-white/60">A Place to Gather & Artisan Brews</p>
                     </div>
                   </div>
-                  <Badge variant="brand">Fresh Roast</Badge>
+                  <Badge variant="brand" size="sm">Community</Badge>
                 </div>
               </div>
             </div>
