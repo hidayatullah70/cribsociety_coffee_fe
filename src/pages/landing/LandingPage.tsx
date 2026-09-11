@@ -8,7 +8,6 @@ import {
   Sparkles,
   Award,
   ShieldCheck,
-  Flame,
   CheckCircle2,
   ChevronRight,
   Phone,
@@ -152,29 +151,13 @@ export const LandingPage: React.FC = () => {
           </div>
 
           {/* Hero Image Card */}
-          <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-brand-black-muted shadow-2xl bg-brand-black-card w-full max-w-md lg:max-w-none group">
+          <div className="lg:col-span-5 relative flex justify-center items-center">
+            <div className="relative rounded-3xl overflow-hidden border border-brand-black-muted shadow-2xl bg-brand-black-card w-full max-w-sm sm:max-w-md lg:max-w-md xl:max-w-lg p-2 group hover:border-brand-red/50 transition-all duration-500">
               <img
                 src="/hero-crib.png"
                 alt="A Place to Gather — Crib Society Coffee"
-                className="w-full h-auto max-h-[540px] sm:max-h-[620px] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-auto object-contain rounded-2xl transition-transform duration-500 group-hover:scale-[1.01] block shadow-lg"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-transparent to-transparent pointer-events-none" />
-              
-              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 rounded-2xl bg-brand-black-card/90 backdrop-blur-md border border-brand-black-muted text-white shadow-xl">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold shrink-0">
-                      <Flame className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-extrabold text-sm text-white">The Crib Experience</h4>
-                      <p className="text-xs text-brand-white/60">A Place to Gather & Artisan Brews</p>
-                    </div>
-                  </div>
-                  <Badge variant="brand" size="sm">Community</Badge>
-                </div>
-              </div>
             </div>
           </div>
         </div>
