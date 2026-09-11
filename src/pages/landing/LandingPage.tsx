@@ -110,9 +110,9 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-white leading-[1.05]">
-              CRAFT COFFEE. <br />
-              <span className="text-brand-red inline-block">ZERO BS.</span> <br />
-              LIGHTNING FAST.
+              FOR ALL HOMIES, <br />
+              <span className="text-brand-red inline-block">FOR ALL PEOPLE,</span> <br />
+              FOR US.
             </h1>
 
             <p className="text-base sm:text-lg text-brand-white/70 max-w-xl font-normal leading-relaxed">
