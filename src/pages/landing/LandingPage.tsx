@@ -57,8 +57,8 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-brand-black text-brand-white flex flex-col selection:bg-brand-red selection:text-white">
       {/* 1. Header / Navbar */}
-      <header className="sticky top-0 z-40 bg-brand-black/90 backdrop-blur-md border-b border-brand-black-muted px-4 sm:px-8 py-4 transition-all">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-brand-black/90 backdrop-blur-md border-b border-brand-black-muted px-4 sm:px-6 md:px-10 lg:px-12 py-3.5 transition-all">
+        <div className="w-full flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group">
             <img
               src="/logo.png"
@@ -102,8 +102,8 @@ export const LandingPage: React.FC = () => {
       </header>
 
       {/* 2. Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-8 border-b border-brand-black-muted bg-gradient-to-b from-brand-black via-brand-black-soft to-brand-black">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="relative overflow-hidden pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 md:px-10 lg:px-12 border-b border-brand-black-muted bg-gradient-to-b from-brand-black via-brand-black-soft to-brand-black">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center gap-2 bg-brand-red-soft text-brand-red px-3.5 py-1.5 rounded-full border border-brand-red/30 font-bold text-xs uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5 text-brand-red" />
@@ -181,8 +181,8 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 3. Featured Menu Section */}
-      <section id="featured-menu" className="py-20 px-4 sm:px-8 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <section id="featured-menu" className="py-16 px-4 sm:px-6 md:px-10 lg:px-12 w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
             <div className="inline-flex items-center gap-2 text-brand-red text-xs font-black uppercase tracking-wider mb-2">
               <Coffee className="w-4 h-4 text-brand-red" />
@@ -226,7 +226,7 @@ export const LandingPage: React.FC = () => {
 
         {/* Menu Grid States */}
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <Card key={i} className="p-4 space-y-4">
                 <Skeleton className="w-full h-48 rounded-xl" />
@@ -250,13 +250,13 @@ export const LandingPage: React.FC = () => {
         ) : filteredProducts.length === 0 ? (
           <EmptyState
             type="empty"
-            title="No items found"
-            description="No products match the selected category right now."
-            actionLabel="View All Menu"
+            title="No items found in this category"
+            description="Try selecting a different craft category or view all items."
+            actionLabel="View All Items"
             onAction={() => setActiveCategory('all')}
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
               <Card
                 key={product.id}
@@ -292,36 +292,35 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Details */}
+                {/* Content */}
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <h3 className="font-extrabold text-base text-white group-hover:text-brand-red transition-colors tracking-tight">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <h3 className="font-extrabold text-base sm:text-lg text-white group-hover:text-brand-red transition-colors line-clamp-1">
                         {product.name}
                       </h3>
-                      <span className="font-black text-white text-base whitespace-nowrap font-mono">
+                      <span className="font-black text-sm text-white shrink-0">
                         {formatIDR(product.price)}
                       </span>
                     </div>
-                    <p className="text-xs text-brand-white/70 line-clamp-2 mt-1.5 leading-relaxed">
+                    <p className="text-xs text-brand-white/60 line-clamp-2 leading-relaxed">
                       {product.description}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-brand-black-muted flex items-center justify-between">
+                  <div className="pt-2 border-t border-brand-black-muted flex items-center justify-between gap-2">
                     <span className="text-[11px] font-semibold text-brand-white/50">
                       {product.variants.length > 0
                         ? `${product.variants.length} Sizes/Options`
-                        : 'Single Serving'}
+                        : 'Standard Size'}
                     </span>
                     <Link to="/pos">
                       <Button
                         size="sm"
-                        variant={product.available ? 'primary' : 'outline'}
                         disabled={!product.available}
-                        className="text-xs font-bold"
+                        className="text-xs px-3 py-1.5 font-bold shadow-sm"
                       >
-                        {product.available ? 'Order in POS' : 'Unavailable'}
+                        Order in POS
                       </Button>
                     </Link>
                   </div>
@@ -333,8 +332,8 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 4. Brand Story Section */}
-      <section id="brand-story" className="py-20 bg-brand-black-soft text-white px-4 sm:px-8 border-y border-brand-black-muted">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section id="brand-story" className="py-16 bg-brand-black-soft text-white px-4 sm:px-6 md:px-10 lg:px-12 border-y border-brand-black-muted">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-5 relative order-2 lg:order-1">
             <div className="rounded-3xl overflow-hidden border border-brand-black-muted shadow-2xl">
               <img
@@ -381,8 +380,8 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 5. Store Information Section */}
-      <section id="store-info" className="py-20 px-4 sm:px-8 max-w-7xl mx-auto w-full">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+      <section id="store-info" className="py-16 px-4 sm:px-6 md:px-10 lg:px-12 w-full">
+        <div className="text-center max-w-2xl mx-auto mb-12">
           <Badge variant="brand" className="mb-2">Visit Us</Badge>
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
             STORE LOCATION & HOURS
@@ -452,8 +451,8 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 6. Selected Highlights / Social Proof */}
-      <section id="highlights" className="py-16 bg-brand-black-soft border-y border-brand-black-muted px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section id="highlights" className="py-16 bg-brand-black-soft border-y border-brand-black-muted px-4 sm:px-6 md:px-10 lg:px-12 w-full">
+        <div className="w-full">
           <div className="text-center mb-10">
             <h3 className="text-2xl font-black text-white">COMMUNITY HIGHLIGHTS</h3>
             <p className="text-xs text-brand-white/60 mt-1">What our regulars say about the crib experience</p>
@@ -488,8 +487,8 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 7. Footer */}
-      <footer className="bg-brand-black text-white pt-14 pb-8 px-4 sm:px-8 mt-auto border-t border-brand-black-muted">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-brand-black-muted">
+      <footer className="bg-brand-black text-white pt-12 pb-8 px-4 sm:px-6 md:px-10 lg:px-12 mt-auto border-t border-brand-black-muted">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-brand-black-muted">
           <div className="space-y-3 md:col-span-2">
             <div className="flex items-center gap-2.5">
               <img
@@ -529,7 +528,7 @@ export const LandingPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-brand-white/40 gap-2">
+        <div className="w-full pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-brand-white/40 gap-2">
           <div>© {new Date().getFullYear()} Crib Society Coffee Roasters. All rights reserved.</div>
           <div className="flex items-center gap-4">
             <span>SOT-Compliant MVP</span>
