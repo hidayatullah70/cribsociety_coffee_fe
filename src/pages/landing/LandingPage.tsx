@@ -12,6 +12,8 @@ import {
   CheckCircle2,
   ChevronRight,
   Phone,
+  Menu,
+  X,
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -29,6 +31,7 @@ export const LandingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,9 +80,9 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-brand-black text-brand-white flex flex-col selection:bg-brand-red selection:text-white">
       {/* 1. Header / Navbar */}
-      <header className="sticky top-0 z-40 bg-brand-black/90 backdrop-blur-md border-b border-brand-black-muted px-4 sm:px-6 md:px-10 lg:px-12 py-3.5 transition-all">
+      <header className="sticky top-0 z-40 bg-brand-black/95 backdrop-blur-md border-b border-brand-black-muted px-4 sm:px-6 md:px-10 lg:px-12 py-3.5 transition-all">
         <div className="w-full flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group" onClick={() => setMobileMenuOpen(false)}>
             <img
               src="/logo.png"
               alt="cribsociety_coffee"
@@ -90,6 +93,7 @@ export const LandingPage: React.FC = () => {
             </span>
           </Link>
 
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 font-medium text-sm text-brand-white/80">
             <a href="#featured-menu" className="hover:text-brand-red transition-colors">
               Menu
@@ -105,9 +109,10 @@ export const LandingPage: React.FC = () => {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-3">
             <Link to="/login">
-              <Button variant="outline" size="sm" className="hidden sm:inline-flex border-brand-black-muted hover:border-brand-red">
+              <Button variant="outline" size="sm" className="border-brand-black-muted hover:border-brand-red">
                 Staff Portal
               </Button>
             </Link>
@@ -118,7 +123,70 @@ export const LandingPage: React.FC = () => {
               </Button>
             </Link>
           </div>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xl text-brand-red hover:bg-brand-black-card border border-brand-black-muted transition-colors focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6 text-brand-red" /> : <Menu className="w-6 h-6 text-brand-red" />}
+          </button>
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden pt-4 pb-2 border-t border-brand-black-muted mt-3.5 space-y-3">
+            <nav className="flex flex-col space-y-1 text-sm font-semibold text-brand-white/90">
+              <a
+                href="#featured-menu"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-2.5 rounded-xl hover:bg-brand-black-card hover:text-brand-red transition-colors flex items-center justify-between"
+              >
+                <span>Menu</span>
+                <ChevronRight className="w-4 h-4 text-brand-red" />
+              </a>
+              <a
+                href="#brand-story"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-2.5 rounded-xl hover:bg-brand-black-card hover:text-brand-red transition-colors flex items-center justify-between"
+              >
+                <span>Brand Story</span>
+                <ChevronRight className="w-4 h-4 text-brand-red" />
+              </a>
+              <a
+                href="#store-info"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-2.5 rounded-xl hover:bg-brand-black-card hover:text-brand-red transition-colors flex items-center justify-between"
+              >
+                <span>Store Info</span>
+                <ChevronRight className="w-4 h-4 text-brand-red" />
+              </a>
+              <a
+                href="#highlights"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-2.5 rounded-xl hover:bg-brand-black-card hover:text-brand-red transition-colors flex items-center justify-between"
+              >
+                <span>Community</span>
+                <ChevronRight className="w-4 h-4 text-brand-red" />
+              </a>
+            </nav>
+
+            <div className="pt-2 border-t border-brand-black-muted flex flex-col gap-2.5">
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                <Button variant="outline" size="sm" className="w-full border-brand-black-muted hover:border-brand-red text-white py-2.5">
+                  Staff Portal
+                </Button>
+              </Link>
+              <Link to="/pos" onClick={() => setMobileMenuOpen(false)}>
+                <Button variant="primary" size="sm" className="w-full flex items-center justify-center gap-2 font-bold shadow-md shadow-brand-red/20 py-2.5">
+                  <span>Order at Counter</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* 2. Hero Section */}
