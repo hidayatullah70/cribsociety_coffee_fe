@@ -67,11 +67,9 @@ export const LoginPage: React.FC = () => {
 
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-brand-red text-white flex items-center justify-center mx-auto shadow-xl shadow-brand-red/30 font-black">
-            <Coffee className="w-7 h-7 text-white" />
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            CRIB OPERATIONS
+          <img src="/logo.png" alt="cribsociety_coffee" className="h-14 w-auto mx-auto object-contain" />
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white lowercase">
+            cribsociety_coffee
           </h1>
           <p className="text-xs text-brand-white/60">
             Role-aware authentication portal for counter staff, shop owner, and guests.

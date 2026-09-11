@@ -59,18 +59,15 @@ export const LandingPage: React.FC = () => {
       {/* 1. Header / Navbar */}
       <header className="sticky top-0 z-40 bg-brand-black/90 backdrop-blur-md border-b border-brand-black-muted px-4 sm:px-8 py-4 transition-all">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-brand-red flex items-center justify-center text-white shadow-lg shadow-brand-red/30 font-black">
-              <Coffee className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight block leading-tight text-white">
-                CRIB SOCIETY
-              </span>
-              <span className="text-[10px] tracking-[0.2em] font-bold text-brand-red uppercase block">
-                COFFEE & POS
-              </span>
-            </div>
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group">
+            <img
+              src="/logo.png"
+              alt="cribsociety_coffee"
+              className="h-8 sm:h-10 md:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <span className="font-extrabold text-base sm:text-lg md:text-xl tracking-tight text-white lowercase">
+              cribsociety_coffee
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8 font-medium text-sm text-brand-white/80">
@@ -494,11 +491,13 @@ export const LandingPage: React.FC = () => {
       <footer className="bg-brand-black text-white pt-14 pb-8 px-4 sm:px-8 mt-auto border-t border-brand-black-muted">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-brand-black-muted">
           <div className="space-y-3 md:col-span-2">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-brand-red flex items-center justify-center font-black text-white">
-                <Coffee className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-black text-lg tracking-tight text-white">CRIB SOCIETY COFFEE</span>
+            <div className="flex items-center gap-2.5">
+              <img
+                src="/logo.png"
+                alt="cribsociety_coffee"
+                className="h-8 w-auto object-contain"
+              />
+              <span className="font-black text-base sm:text-lg tracking-tight text-white lowercase">cribsociety_coffee</span>
             </div>
             <p className="text-xs text-brand-white/60 max-w-sm leading-relaxed">
               Craft coffee roastery and modern counter POS experience. Designed for seamless interactions from landing to espresso pull.
