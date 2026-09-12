@@ -524,7 +524,7 @@ export const LandingPage: React.FC = () => {
                 </svg>
               </a>
               <a
-                href="https://www.tiktok.com/discover/crib-society-cafe"
+                href="https://www.tiktok.com/@crib.society"
                 target="_blank"
                 rel="noreferrer"
                 className="p-2.5 rounded-xl bg-brand-black-soft hover:bg-brand-black-muted text-brand-red transition-colors border border-brand-black-muted hover:border-brand-red/40"

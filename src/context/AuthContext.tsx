@@ -8,6 +8,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, role?: UserRole) => Promise<void>;
+  register: (name: string, email: string, role?: UserRole) => Promise<void>;
   logout: () => void;
   switchRole: (role: UserRole) => void;
 }
@@ -46,6 +47,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const register = async (name: string, email: string, role?: UserRole) => {
+    setIsLoading(true);
+    try {
+      const resp = await apiClient.register(name, email, role);
+      setUser(resp.user);
+      setSession(resp.session);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
   const logout = () => {
     setUser(null);
     setSession(null);
@@ -60,7 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const updatedUser: User = {
       ...user,
       role,
-      name: isGuest ? 'Guest Customer' : isOwner ? 'Hidayat (Owner)' : 'Farhan (Barista)',
+      name: isGuest ? 'Guest Customer' : isOwner ? 'Levi (Owner)' : 'Farhan (Barista)',
       email: isGuest ? 'guest@cribsociety.coffee' : isOwner ? 'owner@cribsociety.coffee' : 'staff@cribsociety.coffee',
     };
     setUser(updatedUser);
@@ -74,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated: !!user,
         isLoading,
         login,
+        register,
         logout,
         switchRole,
       }}

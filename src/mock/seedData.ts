@@ -351,7 +351,7 @@ export const MOCK_INVENTORY: InventoryItem[] = MOCK_PRODUCTS.map((p) => {
 export const MOCK_STAFF: StaffMember[] = [
   {
     id: 'usr_owner_1',
-    name: 'Hidayat (Owner)',
+    name: 'Levi (Owner)',
     email: 'owner@cribsociety.coffee',
     role: 'owner',
     activeShift: true,

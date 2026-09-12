@@ -79,7 +79,7 @@ class MockDatabase {
     const role: 'owner' | 'staff' | 'guest' = isGuest ? 'guest' : isOwner ? 'owner' : 'staff';
     const user: User = {
       id: isGuest ? 'usr_guest_1' : isOwner ? 'usr_owner_1' : 'usr_barista_1',
-      name: isGuest ? 'Guest Customer' : isOwner ? 'Hidayat (Owner)' : 'Farhan (Barista)',
+      name: isGuest ? 'Guest Customer' : isOwner ? 'Levi (Owner)' : 'Farhan (Barista)',
       email: isGuest ? 'guest@cribsociety.coffee' : normalized || (isOwner ? 'owner@cribsociety.coffee' : 'staff@cribsociety.coffee'),
       role,
     };
@@ -91,6 +91,26 @@ class MockDatabase {
       },
     };
   }
+
+  async register(name: string, email: string, roleInput?: 'owner' | 'staff' | 'guest'): Promise<AuthResponse> {
+    await this.delay(400);
+    const normalized = email.toLowerCase().trim();
+    const role: 'owner' | 'staff' | 'guest' = roleInput || 'guest';
+    const user: User = {
+      id: `usr_${Date.now()}`,
+      name: name.trim(),
+      email: normalized,
+      role,
+    };
+    return {
+      user,
+      session: {
+        token: `mock_jwt_${user.id}_${Date.now()}`,
+        expiresAt: new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString(),
+      },
+    };
+  }
+
 
   // Menu
   async getCategories(): Promise<ProductCategory[]> {

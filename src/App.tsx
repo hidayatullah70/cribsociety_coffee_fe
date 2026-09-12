@@ -26,7 +26,8 @@ export const App: React.FC = () => {
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage defaultMode="login" />} />
+              <Route path="/register" element={<LoginPage defaultMode="register" />} />
 
               {/* App Shell & Protected Routes */}
               <Route path="/pos" element={<AppLayout><POSPage /></AppLayout>} />
