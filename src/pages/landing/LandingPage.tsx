@@ -112,8 +112,13 @@ export const LandingPage: React.FC = () => {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
             <Link to="/login">
-              <Button variant="outline" size="sm" className="border-brand-black-muted hover:border-brand-red">
-                Staff Portal
+              <Button variant="ghost" size="sm" className="hover:text-brand-red font-medium">
+                Login
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button variant="outline" size="sm" className="border-brand-black-muted hover:border-brand-red font-medium">
+                Register
               </Button>
             </Link>
             <Link to="/pos">
@@ -173,11 +178,18 @@ export const LandingPage: React.FC = () => {
             </nav>
 
             <div className="pt-2 border-t border-brand-black-muted flex flex-col gap-2.5">
-              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="outline" size="sm" className="w-full border-brand-black-muted hover:border-brand-red text-white py-2.5">
-                  Staff Portal
-                </Button>
-              </Link>
+              <div className="grid grid-cols-2 gap-2">
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" size="sm" className="w-full border-brand-black-muted hover:border-brand-red text-white py-2.5">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" size="sm" className="w-full border-brand-black-muted hover:border-brand-red text-white py-2.5">
+                    Register
+                  </Button>
+                </Link>
+              </div>
               <Link to="/pos" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="primary" size="sm" className="w-full flex items-center justify-center gap-2 font-bold shadow-md shadow-brand-red/20 py-2.5">
                   <span>Order at Counter</span>
