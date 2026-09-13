@@ -37,9 +37,9 @@ class MockDatabase {
 
   private saveToStorage() {
     try {
-      sessionStorage.setItem('csc_orders', JSON.stringify(this.orders));
-      sessionStorage.setItem('csc_products', JSON.stringify(this.products));
-      sessionStorage.setItem('csc_inventory', JSON.stringify(this.inventory));
+      sessionStorage.setItem('csc_orders_v3', JSON.stringify(this.orders));
+      sessionStorage.setItem('csc_products_v3', JSON.stringify(this.products));
+      sessionStorage.setItem('csc_inventory_v3', JSON.stringify(this.inventory));
     } catch {
       // ignore storage errors
     }
@@ -47,10 +47,10 @@ class MockDatabase {
 
   private loadFromStorage() {
     try {
-      const storedOrders = sessionStorage.getItem('csc_orders');
+      const storedOrders = sessionStorage.getItem('csc_orders_v3');
       if (storedOrders) this.orders = JSON.parse(storedOrders);
 
-      const storedProducts = sessionStorage.getItem('csc_products');
+      const storedProducts = sessionStorage.getItem('csc_products_v3');
       if (storedProducts) {
         const parsed: Product[] = JSON.parse(storedProducts);
         this.products = parsed.map((p) => {
@@ -62,7 +62,7 @@ class MockDatabase {
         });
       }
 
-      const storedInv = sessionStorage.getItem('csc_inventory');
+      const storedInv = sessionStorage.getItem('csc_inventory_v3');
       if (storedInv) this.inventory = JSON.parse(storedInv);
     } catch {
       // fallback to initial mock
@@ -167,7 +167,7 @@ class MockDatabase {
       quantity: newProduct.stockQuantity ?? 25,
       available: newProduct.available,
       lowStockThreshold: newProduct.lowStockThreshold ?? 10,
-      unit: newProduct.categoryId === 'cat_pastry' ? 'pcs' : 'cups',
+      unit: ['cat_food', 'cat_snack', 'cat_addon'].includes(newProduct.categoryId) ? 'pcs' : 'cups',
       lastUpdated: new Date().toISOString(),
     });
     this.saveToStorage();

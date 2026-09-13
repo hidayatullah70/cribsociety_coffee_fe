@@ -48,7 +48,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
       setAddons(editingProduct.addons || []);
     } else {
       setName('');
-      setCategoryId(categories[0]?.id || 'cat_espresso');
+      setCategoryId(categories[0]?.id || 'cat_signature_coffee');
       setPrice(32000);
       setDescription('');
       setImageUrl('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600');
