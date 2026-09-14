@@ -618,7 +618,7 @@ export const LandingPage: React.FC = () => {
               <span className="font-black text-base sm:text-lg tracking-tight text-white lowercase">cribsociety</span>
             </div>
             <p className="text-xs text-brand-white/60 max-w-sm leading-relaxed">
-              Craft coffee roastery and modern counter POS experience. Designed for seamless interactions from landing to espresso pull.
+              FOR ALL HOMIES, FOR ALL PEOPLE, FOR US.
             </p>
           </div>
 
