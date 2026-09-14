@@ -37,9 +37,9 @@ class MockDatabase {
 
   private saveToStorage() {
     try {
-      sessionStorage.setItem('csc_orders_v3', JSON.stringify(this.orders));
-      sessionStorage.setItem('csc_products_v3', JSON.stringify(this.products));
-      sessionStorage.setItem('csc_inventory_v3', JSON.stringify(this.inventory));
+      sessionStorage.setItem('csc_orders_v4', JSON.stringify(this.orders));
+      sessionStorage.setItem('csc_products_v4', JSON.stringify(this.products));
+      sessionStorage.setItem('csc_inventory_v4', JSON.stringify(this.inventory));
     } catch {
       // ignore storage errors
     }
@@ -47,22 +47,25 @@ class MockDatabase {
 
   private loadFromStorage() {
     try {
-      const storedOrders = sessionStorage.getItem('csc_orders_v3');
+      const storedOrders = sessionStorage.getItem('csc_orders_v4');
       if (storedOrders) this.orders = JSON.parse(storedOrders);
 
-      const storedProducts = sessionStorage.getItem('csc_products_v3');
+      const storedProducts = sessionStorage.getItem('csc_products_v4');
       if (storedProducts) {
         const parsed: Product[] = JSON.parse(storedProducts);
-        this.products = parsed.map((p) => {
-          const defaultProd = MOCK_PRODUCTS.find((m) => m.id === p.id);
-          if (defaultProd && (!p.imageUrl || p.imageUrl.includes('1572442388796'))) {
-            return { ...p, imageUrl: defaultProd.imageUrl };
-          }
-          return p;
-        });
+        // If stored products is matching current seed products length, load it, otherwise sync fresh
+        if (parsed.length === MOCK_PRODUCTS.length) {
+          this.products = parsed;
+        } else {
+          this.products = [...MOCK_PRODUCTS];
+          this.saveToStorage();
+        }
+      } else {
+        this.products = [...MOCK_PRODUCTS];
+        this.saveToStorage();
       }
 
-      const storedInv = sessionStorage.getItem('csc_inventory_v3');
+      const storedInv = sessionStorage.getItem('csc_inventory_v4');
       if (storedInv) this.inventory = JSON.parse(storedInv);
     } catch {
       // fallback to initial mock
