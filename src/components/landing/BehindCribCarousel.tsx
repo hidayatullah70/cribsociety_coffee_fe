@@ -14,35 +14,35 @@ const DEFAULT_CREW: CrewMember[] = [
     id: 'crew_1',
     name: 'Reza Falevi',
     role: 'Founder & CEO',
-    image: '/crew/behindTheCrib.jpeg',
+    image: '/crew/ceo.jpeg',
     bio: 'Crafting the distinct Crib taste and curating single-origin beans with precision roast profiles.',
   },
   {
     id: 'crew_2',
     name: 'Lisa Anderson',
     role: 'CASHIER, MARKETING COMMUNITY',
-    image: '/crew/behindTheCrib.jpeg',
+    image: '/crew/barista2.png',
     bio: 'Bridging coffee culture and youth creativity for all homies across the city.',
   },
   {
     id: 'crew_3',
     name: 'Farhan',
     role: 'HEAD BARISTA & FLAVOR SPECIALIST',
-    image: '/crew/behindTheCrib.jpeg',
+    image: '/crew/barista1.png',
     bio: 'Perfecting espresso extraction, milk velvety texture, and signature drink development.',
   },
   {
     id: 'crew_4',
     name: 'Dimas Pratama',
     role: 'BARISTA, EVENT ORGANIZER',
-    image: '/crew/behindTheCrib.jpeg',
+    image: '/crew/barista3.png',
     bio: 'Ensuring lightning-fast counter service and welcoming vibes for every walk-in customer.',
   },
   {
     id: 'crew_5',
     name: 'Kevin Jonathan',
     role: 'CULINARY & COMFORT FOOD LEAD',
-    image: '/crew/behindTheCrib.jpeg',
+    image: '/crew/barista4.png',
     bio: 'Creating savory rice bowls, platters, and snacks tailored for coffee pairing.',
   },
 ];
@@ -261,8 +261,8 @@ export const BehindCribCarousel: React.FC<BehindCribCarouselProps> = ({
               onClick={() => setCurrentIndex(index)}
               aria-label={`Go to slide ${index + 1}`}
               className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-red/50 ${isActive
-                  ? 'w-7 h-2.5 bg-brand-red shadow-md shadow-brand-red/40'
-                  : 'w-2.5 h-2.5 bg-brand-white/25 hover:bg-brand-white/50'
+                ? 'w-7 h-2.5 bg-brand-red shadow-md shadow-brand-red/40'
+                : 'w-2.5 h-2.5 bg-brand-white/25 hover:bg-brand-white/50'
                 }`}
             />
           );
