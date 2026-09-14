@@ -20,6 +20,7 @@ import { Badge } from '../../components/ui/Badge';
 import { Card } from '../../components/ui/Card';
 import { Skeleton } from '../../components/ui/Skeleton';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { BehindCribCarousel } from '../../components/landing/BehindCribCarousel';
 import { apiClient } from '../../api';
 import { Product, ProductCategory } from '../../types';
 import { formatIDR } from '../../utils/currency';
@@ -107,6 +108,9 @@ export const LandingPage: React.FC = () => {
             <a href="#highlights" className="hover:text-brand-red transition-colors">
               Community
             </a>
+            <a href="#behind-crib" className="hover:text-brand-red transition-colors">
+              Behind Crib
+            </a>
           </nav>
 
           {/* Desktop Actions */}
@@ -173,6 +177,14 @@ export const LandingPage: React.FC = () => {
                 className="px-3.5 py-2.5 rounded-xl hover:bg-brand-black-card hover:text-brand-red transition-colors flex items-center justify-between"
               >
                 <span>Community</span>
+                <ChevronRight className="w-4 h-4 text-brand-red" />
+              </a>
+              <a
+                href="#behind-crib"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3.5 py-2.5 rounded-xl hover:bg-brand-black-card hover:text-brand-red transition-colors flex items-center justify-between"
+              >
+                <span>Behind Crib</span>
                 <ChevronRight className="w-4 h-4 text-brand-red" />
               </a>
             </nav>
@@ -588,6 +600,11 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* 7. Behind the Crib (Our Team) */}
+      <section id="behind-crib" className="py-16 bg-brand-black px-4 sm:px-6 md:px-10 lg:px-12 w-full border-b border-brand-black-muted overflow-hidden">
+        <BehindCribCarousel />
+      </section>
+
       {/* 7. Footer */}
       <footer className="bg-brand-black text-white pt-12 pb-8 px-4 sm:px-6 md:px-10 lg:px-12 mt-auto border-t border-brand-black-muted">
         <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-brand-black-muted">
@@ -613,6 +630,8 @@ export const LandingPage: React.FC = () => {
               <li><a href="#featured-menu" className="hover:text-brand-red">Curated Menu</a></li>
               <li><a href="#brand-story" className="hover:text-brand-red">Brand Story</a></li>
               <li><a href="#store-info" className="hover:text-brand-red">Store Location</a></li>
+              <li><a href="#highlights" className="hover:text-brand-red">Community</a></li>
+              <li><a href="#behind-crib" className="hover:text-brand-red">Behind Crib</a></li>
               <li><Link to="/pos" className="hover:text-brand-red">Counter POS</Link></li>
             </ul>
           </div>
