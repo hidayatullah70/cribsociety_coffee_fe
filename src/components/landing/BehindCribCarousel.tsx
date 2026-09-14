@@ -12,21 +12,21 @@ export interface CrewMember {
 const DEFAULT_CREW: CrewMember[] = [
   {
     id: 'crew_1',
-    name: 'David Kim',
-    role: 'FOUNDER & HEAD ROASTER',
+    name: 'Reza Falevi',
+    role: 'Founder & CEO',
     image: '/crew/behindTheCrib.jpeg',
     bio: 'Crafting the distinct Crib taste and curating single-origin beans with precision roast profiles.',
   },
   {
     id: 'crew_2',
     name: 'Lisa Anderson',
-    role: 'MARKETING MANAGER & COMMUNITY',
+    role: 'CASHIER, MARKETING COMMUNITY',
     image: '/crew/behindTheCrib.jpeg',
     bio: 'Bridging coffee culture and youth creativity for all homies across the city.',
   },
   {
     id: 'crew_3',
-    name: 'Sarah Utami',
+    name: 'Farhan',
     role: 'HEAD BARISTA & FLAVOR SPECIALIST',
     image: '/crew/behindTheCrib.jpeg',
     bio: 'Perfecting espresso extraction, milk velvety texture, and signature drink development.',
@@ -34,7 +34,7 @@ const DEFAULT_CREW: CrewMember[] = [
   {
     id: 'crew_4',
     name: 'Dimas Pratama',
-    role: 'STORE OPERATIONS & EXPERIENCE',
+    role: 'BARISTA, EVENT ORGANIZER',
     image: '/crew/behindTheCrib.jpeg',
     bio: 'Ensuring lightning-fast counter service and welcoming vibes for every walk-in customer.',
   },
@@ -260,11 +260,10 @@ export const BehindCribCarousel: React.FC<BehindCribCarouselProps> = ({
               key={index}
               onClick={() => setCurrentIndex(index)}
               aria-label={`Go to slide ${index + 1}`}
-              className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-red/50 ${
-                isActive
+              className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-red/50 ${isActive
                   ? 'w-7 h-2.5 bg-brand-red shadow-md shadow-brand-red/40'
                   : 'w-2.5 h-2.5 bg-brand-white/25 hover:bg-brand-white/50'
-              }`}
+                }`}
             />
           );
         })}

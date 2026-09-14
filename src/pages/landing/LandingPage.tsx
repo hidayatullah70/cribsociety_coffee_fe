@@ -86,11 +86,11 @@ export const LandingPage: React.FC = () => {
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group" onClick={() => setMobileMenuOpen(false)}>
             <img
               src="/logo.png"
-              alt="cribsociety_coffee"
+              alt="cribsociety"
               className="h-8 sm:h-10 md:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <span className="font-extrabold text-base sm:text-lg md:text-xl tracking-tight text-white lowercase">
-              cribsociety_coffee
+              cribsociety
             </span>
           </Link>
 
@@ -612,10 +612,10 @@ export const LandingPage: React.FC = () => {
             <div className="flex items-center gap-2.5">
               <img
                 src="/logo.png"
-                alt="cribsociety_coffee"
+                alt="cribsociety"
                 className="h-8 w-auto object-contain"
               />
-              <span className="font-black text-base sm:text-lg tracking-tight text-white lowercase">cribsociety_coffee</span>
+              <span className="font-black text-base sm:text-lg tracking-tight text-white lowercase">cribsociety</span>
             </div>
             <p className="text-xs text-brand-white/60 max-w-sm leading-relaxed">
               Craft coffee roastery and modern counter POS experience. Designed for seamless interactions from landing to espresso pull.

@@ -106,8 +106,8 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
       {/* Mobile Top Header */}
       <header className="md:hidden bg-brand-black-soft text-brand-white px-4 py-3 flex items-center justify-between border-b border-brand-black-muted sticky top-0 z-40">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="cribsociety_coffee" className="h-7 w-auto object-contain" />
-          <span className="font-extrabold tracking-tight text-sm text-white lowercase">cribsociety_coffee</span>
+          <img src="/logo.png" alt="cribsociety" className="h-7 w-auto object-contain" />
+          <span className="font-extrabold tracking-tight text-sm text-white lowercase">cribsociety</span>
         </Link>
 
         <div className="flex items-center gap-2">
@@ -129,9 +129,9 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
         {/* Brand Header */}
         <div className="p-5 border-b border-brand-black-muted flex flex-col gap-2">
           <Link to="/" className="flex items-center gap-2.5 group">
-            <img src="/logo.png" alt="cribsociety_coffee" className="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
+            <img src="/logo.png" alt="cribsociety" className="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
             <span className="font-extrabold text-sm tracking-tight text-white lowercase">
-              cribsociety_coffee
+              cribsociety
             </span>
           </Link>
         </div>
@@ -229,8 +229,8 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
           <div>
             <div className="flex items-center justify-between pb-6 border-b border-brand-black-muted">
               <div className="flex items-center gap-2.5">
-                <img src="/logo.png" alt="cribsociety_coffee" className="h-8 w-auto object-contain" />
-                <span className="font-bold text-base text-white lowercase">cribsociety_coffee</span>
+                <img src="/logo.png" alt="cribsociety" className="h-8 w-auto object-contain" />
+                <span className="font-bold text-base text-white lowercase">cribsociety</span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}

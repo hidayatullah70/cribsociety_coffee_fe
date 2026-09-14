@@ -150,9 +150,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ defaultMode }) => {
 
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <img src="/logo.png" alt="cribsociety_coffee" className="h-14 w-auto mx-auto object-contain" />
+          <img src="/logo.png" alt="cribsociety" className="h-14 w-auto mx-auto object-contain" />
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white lowercase">
-            cribsociety_coffee
+            cribsociety
           </h1>
           <p className="text-xs text-brand-white/60">
             {mode === 'login'
